@@ -426,7 +426,7 @@
           <button class="text-link" id="fair-link" type="button">How verification works</button>
         </div>
         <figure class="hero-media">
-          <img src="paris-box.png" alt="Deep burgundy and blush couture presentation box in a Parisian salon">
+          <img src="./images/paris-box.png" alt="Deep burgundy and blush couture presentation box in a Parisian salon">
           <figcaption class="hero-caption">The City Editions — 2026</figcaption>
           <span class="hero-index" aria-hidden="true">01</span>
         </figure>
@@ -442,8 +442,8 @@
 
       <section class="opening" id="opening" aria-label="Selected collection">
         <div class="opening-image">
-          <img class="opening-photo-closed" id="opening-photo" src="london-box-green.png" alt="Closed London Edit presentation box">
-          <img class="opening-photo-open" id="opening-photo-open" src="london-box-open.png" alt="Open London Edit presentation box">
+          <img class="opening-photo-closed" id="opening-photo" src="./images/london-box-green.png" alt="Closed London Edit presentation box">
+          <img class="opening-photo-open" id="opening-photo-open" src="./images/london-box-open.png" alt="Open London Edit presentation box">
           <span class="opening-stamp" id="opening-stamp">Collection 01</span>
         </div>
         <div class="opening-panel">
@@ -519,7 +519,7 @@
 
   <div class="modal reward-modal" id="reward-modal" role="dialog" aria-modal="true" aria-labelledby="reward-name">
     <div class="modal-sheet">
-      <div class="reward-photo"><img id="reward-photo" src="london-edit.png" alt=""></div>
+      <div class="reward-photo"><img id="reward-photo" src="./images/london-edit.png" alt=""></div>
       <div class="reward-copy">
         <p class="kicker" id="reward-tier">Rare edition</p>
         <h2 id="reward-name">Blush Drawstring</h2>
@@ -544,14 +544,14 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const FALLBACK_PHOTO = 'paris-edit.png';
+    const FALLBACK_PHOTO = './images/paris-edit.png';
     const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
     const BOXES = [
       {
         id: 'london', number: '01', name: 'London Edit', title: 'Heritage, cut with an edge.',
         description: 'Structured oxblood leather, silk, and evening pieces shaped by modern British restraint.',
-        price: 5000, boxImage: 'london-box-green.png', openImage: 'london-box-open.png', image: 'london-edit.png', imagePosition: 'center',
+        price: 5000, boxImage: './images/london-box-green.png', openImage: './images/london-box-open.png', image: './images/london-edit.png', imagePosition: 'center',
         products: [
           { name: 'Ivory Silk Square', tier: 'Essential', chance: 30, value: 2000, position: '79% 70%' },
           { name: 'Plum Evening Pouch', tier: 'Signature', chance: 25, value: 4500, position: '31% 67%' },
@@ -564,7 +564,7 @@
       {
         id: 'new-york', number: '02', name: 'New York Edit', title: 'Downtown precision, uptown polish.',
         description: 'Clean lines, black-cherry leather, and cool silver details for a sharper kind of classic.',
-        price: 10000, boxImage: 'new-york-box.png', openImage: 'new-york-box-open.png', image: 'new-york-edit.png', imagePosition: 'center',
+        price: 10000, boxImage: './images/new-york-box.png', openImage: './images/new-york-box-open.png', image: './images/new-york-edit.png', imagePosition: 'center',
         products: [
           { name: 'Studio Silver Cuff', tier: 'Essential', chance: 35, value: 4500, position: '46% 76%' },
           { name: 'Blush Gallery Clutch', tier: 'Signature', chance: 25, value: 9000, position: '28% 67%' },
@@ -577,7 +577,7 @@
       {
         id: 'milan', number: '03', name: 'Milan Edit', title: 'Form, light, and Italian confidence.',
         description: 'Sculptural silhouettes in oxblood and ivory, framed by warm travertine and muted brass.',
-        price: 25000, boxImage: 'milan-box-cognac.png', openImage: 'milan-box-open.png', image: 'milan-edit.png', imagePosition: 'center',
+        price: 25000, boxImage: './images/milan-box-cognac.png', openImage: './images/milan-box-open.png', image: './images/milan-edit.png', imagePosition: 'center',
         products: [
           { name: 'Brushed Brass Cuff', tier: 'Essential', chance: 35, value: 10000, position: '34% 80%' },
           { name: 'Ivory Geometric Mini', tier: 'Signature', chance: 25, value: 22500, position: '31% 55%' },
@@ -590,7 +590,7 @@
       {
         id: 'paris', number: '04', name: 'Paris Edit', title: 'The rarest expression of the house.',
         description: 'Haute-couture finishing, deep wine leather, and luminous silk selected without compromise.',
-        price: 100000, boxImage: 'paris-box.png', openImage: 'paris-box-open.png', image: 'paris-edit.png', imagePosition: 'center',
+        price: 100000, boxImage: './images/paris-box.png', openImage: './images/paris-box-open.png', image: './images/paris-edit.png', imagePosition: 'center',
         products: [
           { name: 'Ivory Atelier Silk', tier: 'Essential', chance: 35, value: 45000, position: '35% 77%' },
           { name: 'Blush Salon Pouch', tier: 'Signature', chance: 25, value: 90000, position: '29% 55%' },
