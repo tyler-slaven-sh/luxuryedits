@@ -24,7 +24,7 @@
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       margin: 0;
@@ -34,6 +34,7 @@
       background: var(--ivory);
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -47,7 +48,8 @@
     }
 
     button, input { font: inherit; }
-    button { color: inherit; }
+    button { color: inherit; touch-action: manipulation; }
+    img { max-width: 100%; }
     button:focus-visible, input:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
 
     .shell { width: min(100% - 48px, 1380px); margin: 0 auto; }
@@ -91,6 +93,8 @@
       padding: 42px 0 92px;
       gap: 52px;
     }
+
+    .hero > *, .opening > *, .topbar > * { min-width: 0; }
 
     .hero-copy {
       align-self: center;
@@ -140,7 +144,7 @@
       text-transform: uppercase;
     }
 
-    .hero-media { position: relative; min-height: 620px; overflow: hidden; background: var(--ivory-deep); }
+    .hero-media { position: relative; min-height: 620px; margin: 0; overflow: hidden; background: var(--ivory-deep); }
     .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .hero-caption {
@@ -362,44 +366,97 @@
     }
 
     @media (max-width: 900px) {
-      .shell { width: min(100% - 28px, 1380px); }
+      .shell { width: min(calc(100% - 28px), 1380px); margin-inline: auto; }
       .topbar { height: 76px; grid-template-columns: 1fr auto; }
       .top-note { display: none; }
       .brand { justify-self: start; }
-      .hero { grid-template-columns: 1fr; min-height: 0; gap: 16px; padding: 34px 0 80px; }
+      .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 28px; padding: 34px 0 80px; }
       .hero-copy { padding: 38px 0 18px; }
-      .hero-media { min-height: 66vw; }
+      .hero-media { min-height: 0; aspect-ratio: 4 / 3; }
       .hero-index { left: 18px; bottom: -20px; }
-      .boxes { grid-template-columns: 1fr; gap: 46px; }
-      .box-visual { height: min(115vw, 620px); }
-      .opening { grid-template-columns: 1fr; margin-top: 90px; }
-      .opening-image { min-height: 72vw; }
+      .boxes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 18px; }
+      .box-visual { height: auto; aspect-ratio: 4 / 5; }
+      .opening { grid-template-columns: minmax(0, 1fr); margin-top: 90px; }
+      .opening-image { min-height: 0; aspect-ratio: 4 / 3; }
       .opening-panel { padding: 48px 28px; }
-      .trust { grid-template-columns: 1fr; gap: 55px; margin-top: 100px; }
+      .trust { grid-template-columns: 1fr; gap: 55px; margin-top: 100px; padding: 68px 0; }
       .reward-modal .modal-sheet { grid-template-columns: 1fr; }
-      .reward-photo { min-height: 300px; max-height: 42vh; }
+      .reward-modal .modal-sheet { overflow-y: auto; }
+      .reward-photo { min-height: 280px; height: min(42dvh, 420px); }
       .reward-copy { padding: 34px; }
     }
 
+    @media (max-width: 680px) {
+      .boxes { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 560px) {
-      h1 { font-size: 59px; }
+      .shell { width: calc(100% - 24px); }
+      h1 { font-size: clamp(48px, 16vw, 66px); line-height: .88; }
+      .topbar { height: 68px; }
+      .brand { font-size: 20px; letter-spacing: .2em; }
+      .wallet { gap: 8px; font-size: 10px; }
       .wallet span:not(.wallet-mark), .top-note { display: none; }
-      .box-visual { height: 115vw; }
-      .opening-image { min-height: 92vw; }
+      .hero { gap: 20px; padding: 22px 0 64px; }
+      .hero-copy { padding: 30px 0 10px; }
+      .hero-intro { margin: 26px 0 24px; font-size: 13px; line-height: 1.65; }
+      .hero-media { aspect-ratio: 4 / 5; }
+      .hero-caption { right: 12px; bottom: 12px; }
+      .hero-index { left: 12px; bottom: 12px; width: 44px; height: 44px; }
+      .section-rule { align-items: flex-end; padding: 14px 0; }
+      .section-rule h2 { font-size: 39px; }
+      .section-rule span { max-width: 112px; text-align: right; line-height: 1.55; }
+      .boxes { margin-top: 20px; gap: 38px; }
+      .box-visual { aspect-ratio: 4 / 5; }
+      .box-meta { margin-top: 15px; }
+      .box-name { font-size: 27px; }
+      .box-desc { line-height: 1.55; }
+      .opening { margin-top: 72px; }
+      .opening-image { aspect-ratio: 4 / 3; }
+      .opening-stamp { top: 14px; left: 14px; }
+      .opening-panel { padding: 36px 20px 28px; }
+      .opening-panel h2 { font-size: clamp(42px, 13vw, 58px); }
+      .round-meta { margin: 28px 0 18px; padding: 14px 0; }
+      .round-row { align-items: center; gap: 12px; }
+      .round-row code { max-width: 48%; }
       .open-actions { grid-template-columns: 1fr; }
+      .open-btn, .keep-btn { min-height: 54px; }
       .secondary-btn { min-height: 48px; }
-      .trust { padding: 62px 0; }
+      .trust { gap: 42px; margin-top: 82px; padding: 56px 0; }
+      .trust h2 { font-size: clamp(44px, 13vw, 60px); }
       .trust-copy { grid-template-columns: 1fr; }
-      .site-footer { flex-direction: column; padding-bottom: 65px; }
+      .site-footer { flex-direction: column; padding: 28px 0 max(56px, env(safe-area-inset-bottom)); }
       .modal { padding: 0; align-items: end; }
-      .modal-sheet { width: 100%; max-height: 92vh; padding: 28px 20px; }
-      .odds-row { grid-template-columns: 44px 1fr auto; }
+      .modal-sheet { width: 100%; max-height: calc(100dvh - max(12px, env(safe-area-inset-top))); padding: 28px 20px max(28px, env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+      .sheet-head { margin-bottom: 22px; }
+      .sheet-head h2 { font-size: clamp(36px, 11vw, 45px); }
+      .close-btn { width: 44px; height: 44px; }
+      .odds-summary { align-items: flex-start; gap: 12px; font-size: 8px; line-height: 1.5; }
+      .odds-summary span:last-child { text-align: right; }
+      .odds-row { grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; }
       .odds-thumb { width: 44px; height: 55px; }
+      .odds-row strong { min-width: 0; font-size: 17px; overflow-wrap: anywhere; }
       .odds-value { display: none; }
+      .seed-control input { min-height: 48px; font-size: 16px; }
+      .proof-field { padding: 11px; }
       .inventory-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .item-card img { height: 130px; }
-      .reward-modal .modal-sheet { max-height: 96vh; }
-      .reward-copy h2 { font-size: 43px; }
+      .item-card img { height: auto; aspect-ratio: 4 / 5; }
+      .item-card strong { font-size: 17px; }
+      .item-meta { flex-direction: column; gap: 3px; }
+      .reward-modal .modal-sheet { max-height: 100dvh; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+      .reward-photo { min-height: 230px; height: min(39dvh, 330px); }
+      .reward-copy { padding: 28px 20px 8px; }
+      .reward-copy h2 { font-size: clamp(40px, 12vw, 50px); }
+      .reward-value { margin-top: 14px; }
+      .reward-chance { margin-bottom: 22px; }
+      .toast { width: calc(100% - 24px); bottom: max(12px, env(safe-area-inset-bottom)); text-align: center; }
+    }
+
+    @media (max-width: 380px) {
+      .section-rule span { display: none; }
+      .inventory-grid { grid-template-columns: 1fr; }
+      .round-row { font-size: 9px; }
+      .opening-panel { padding-inline: 16px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -426,7 +483,7 @@
           <button class="text-link" id="fair-link" type="button">How verification works</button>
         </div>
         <figure class="hero-media">
-          <img src="./images/paris-box.png" alt="Deep burgundy and blush couture presentation box in a Parisian salon">
+          <img src="./images/paris-box.png" alt="Deep burgundy and blush couture presentation box in a Parisian salon" decoding="async" fetchpriority="high">
           <figcaption class="hero-caption">The City Editions — 2026</figcaption>
           <span class="hero-index" aria-hidden="true">01</span>
         </figure>
@@ -442,8 +499,8 @@
 
       <section class="opening" id="opening" aria-label="Selected collection">
         <div class="opening-image">
-          <img class="opening-photo-closed" id="opening-photo" src="./images/london-box-green.png" alt="Closed London Edit presentation box">
-          <img class="opening-photo-open" id="opening-photo-open" src="./images/london-box-open.png" alt="Open London Edit presentation box">
+          <img class="opening-photo-closed" id="opening-photo" src="./images/london-box-green.png" alt="Closed London Edit presentation box" loading="lazy" decoding="async">
+          <img class="opening-photo-open" id="opening-photo-open" src="./images/london-box-open.png" alt="Open London Edit presentation box" loading="lazy" decoding="async">
           <span class="opening-stamp" id="opening-stamp">Collection 01</span>
         </div>
         <div class="opening-panel">
@@ -519,7 +576,7 @@
 
   <div class="modal reward-modal" id="reward-modal" role="dialog" aria-modal="true" aria-labelledby="reward-name">
     <div class="modal-sheet">
-      <div class="reward-photo"><img id="reward-photo" src="./images/london-edit.png" alt=""></div>
+      <div class="reward-photo"><img id="reward-photo" src="./images/london-edit.png" alt="" decoding="async"></div>
       <div class="reward-copy">
         <p class="kicker" id="reward-tier">Rare edition</p>
         <h2 id="reward-name">Blush Drawstring</h2>
@@ -658,7 +715,7 @@
     function renderBoxes() {
       boxList.innerHTML = BOXES.map(box => `
         <button class="box-card ${box.id === state.selected.id ? 'active' : ''}" type="button" data-box="${box.id}" aria-pressed="${box.id === state.selected.id}">
-          <span class="box-visual"><img src="${box.boxImage}" alt="${box.name} presentation box" style="object-position:${box.imagePosition}"></span>
+          <span class="box-visual"><img src="${box.boxImage}" alt="${box.name} presentation box" style="object-position:${box.imagePosition}" loading="lazy" decoding="async"></span>
           <span class="box-meta">
             <span class="box-number">Collection ${box.number} · ${box.products.length} possible pieces</span>
             <span class="box-name">${box.name}</span><span class="box-price">${money.format(box.price / 100)}</span>
@@ -705,7 +762,7 @@
       $('#odds-total').textContent = `Total probability ${total.toFixed(2)}%`;
       $('#odds-list').innerHTML = box.products.map(product => `
         <div class="odds-row">
-          <img class="odds-thumb" src="${box.image}" alt="" style="object-position:${product.position}">
+          <img class="odds-thumb" src="${box.image}" alt="" style="object-position:${product.position}" loading="lazy" decoding="async">
           <strong>${product.name}</strong>
           <span class="odds-value">Est. ${money.format(product.value / 100)}</span>
           <span class="odds-chance">${product.chance.toFixed(2)}%</span>
@@ -820,7 +877,7 @@
       }
       grid.innerHTML = state.inventory.map(item => `
         <article class="item-card">
-          <img src="${item.image || FALLBACK_PHOTO}" alt="${item.name}" style="object-position:${item.position || '76% center'}">
+          <img src="${item.image || FALLBACK_PHOTO}" alt="${item.name}" style="object-position:${item.position || '76% center'}" loading="lazy" decoding="async">
           <strong>${item.name}</strong>
           <div class="item-meta"><span>${item.tier}</span><span>${money.format(item.value / 100)}</span></div>
         </article>`).join('');
