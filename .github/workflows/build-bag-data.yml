@@ -1,0 +1,42 @@
+name: Build bag data
+
+on:
+  push:
+    paths:
+      - data/bags.csv
+      - scripts/csv-to-json.sh
+      - .github/workflows/build-bag-data.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Convert CSV to JSON
+        run: bash scripts/csv-to-json.sh data/bags.csv data/bags.json
+
+      - name: Commit generated JSON
+        run: |
+          git add data/bags.json
+
+          if git diff --cached --quiet; then
+            echo "data/bags.json is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: regenerate bag data"
+          git push
