@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f7f1e7">
-  <meta name="description" content="Bagbox — transparent luxury bag drops with published odds and verifiable results.">
-  <title>Bagbox — Chance, in plain sight</title>
+  <meta name="description" content="Bagbox offers mixed-designer purse boxes featuring Chanel, Louis Vuitton, Prada, Kate Spade, Michael Kors, and more, with every probability published before opening.">
+  <title>Bagbox — Designer purses, published odds</title>
   <style>
     :root {
       --ivory: #f7f1e7;
@@ -51,6 +51,7 @@
     button { color: inherit; touch-action: manipulation; }
     img { max-width: 100%; }
     button:focus-visible, input:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%); white-space: nowrap; }
 
     .shell { width: min(100% - 48px, 1380px); margin: 0 auto; }
 
@@ -129,6 +130,7 @@
     .boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 26px; }
 
     .box-card {
+      position: relative;
       border: 0;
       padding: 0 0 22px;
       text-align: left;
@@ -142,11 +144,34 @@
     .box-card:hover .box-visual img { transform: scale(1.035); }
     .box-card.active .box-visual { box-shadow: inset 0 0 0 4px var(--burgundy); }
 
+    .selected-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--ivory);
+      background: var(--burgundy);
+      box-shadow: 0 6px 16px rgba(47, 7, 20, .2);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      opacity: 0;
+      text-transform: uppercase;
+      transform: translateY(-4px);
+      transition: opacity .2s, transform .2s;
+    }
+
+    .box-card.active .selected-badge { opacity: 1; transform: none; }
+
     .box-meta { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 18px; }
     .box-number { grid-column: 1 / -1; color: var(--rose); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
     .box-name { font-family: var(--serif); font-size: 29px; line-height: 1; }
     .box-price { align-self: center; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
     .box-desc { grid-column: 1 / -1; max-width: 340px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .carousel-controls { display: none; }
 
     .opening {
       margin: 56px 0 0;
@@ -304,6 +329,11 @@
     .toast { position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translate(-50%, 100px); padding: 14px 20px; color: var(--ivory); background: var(--burgundy-dark); font-size: 11px; transition: transform .35s; }
     .toast.show { transform: translate(-50%, 0); }
 
+    @keyframes box-card-in {
+      from { opacity: 0; transform: translateX(12px) scale(.985); }
+      to { opacity: 1; transform: none; }
+    }
+
     @media (max-width: 1180px) {
       .boxes { grid-template-columns: repeat(2, 1fr); gap: 34px 18px; }
     }
@@ -375,28 +405,62 @@
         letter-spacing: .1em;
         text-align: left;
       }
-      .boxes { margin-top: 0; gap: 12px; }
+      .boxes { display: block; margin-top: 0; }
       .box-card {
+        display: none;
+        width: 100%;
         min-width: 0;
-        padding: 7px 7px 10px;
+        padding: 8px 8px 14px;
         border: 1px solid rgba(71, 39, 38, .09);
-        border-radius: 18px;
+        border-radius: 22px;
         background: var(--paper);
         box-shadow: 0 8px 24px rgba(63, 28, 31, .055);
         transition: border-color .2s, box-shadow .2s, transform .2s;
       }
       .box-card:active { transform: scale(.985); }
       .box-card.active {
+        display: block;
         border-color: rgba(93, 19, 40, .65);
         box-shadow: 0 0 0 2px rgba(93, 19, 40, .1), 0 10px 28px rgba(63, 28, 31, .09);
+        animation: box-card-in .28s cubic-bezier(.2, .8, .2, 1);
       }
-      .box-visual { height: auto; aspect-ratio: 1; border-radius: 12px; }
+      .selected-badge { top: 18px; left: 18px; padding: 9px 11px; }
+      .box-visual { height: auto; aspect-ratio: 4 / 3; border-radius: 15px; }
       .box-card.active .box-visual { box-shadow: none; }
-      .box-meta { grid-template-columns: minmax(0, 1fr) auto; gap: 5px 6px; margin: 10px 2px 1px; }
-      .box-number { overflow: hidden; color: var(--rose); font-size: 7px; letter-spacing: .1em; text-overflow: ellipsis; white-space: nowrap; }
-      .box-name { overflow: hidden; font: 650 14px/1.2 var(--sans); letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
-      .box-price { align-self: center; font-size: 10px; }
-      .box-desc { display: none; }
+      .box-meta { grid-template-columns: minmax(0, 1fr) auto; gap: 7px 10px; margin: 14px 6px 2px; }
+      .box-number { overflow: hidden; color: var(--rose); font-size: 8px; letter-spacing: .11em; text-overflow: ellipsis; white-space: nowrap; }
+      .box-name { overflow: hidden; font: 700 19px/1.2 var(--sans); letter-spacing: -.025em; text-overflow: ellipsis; white-space: nowrap; }
+      .box-price { align-self: center; font-size: 12px; }
+      .box-desc { display: block; max-width: none; font-size: 11px; line-height: 1.5; }
+      .carousel-controls {
+        display: grid;
+        grid-template-columns: 48px 1fr 48px;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+      }
+      .carousel-arrow {
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(71, 39, 38, .15);
+        border-radius: 50%;
+        background: var(--paper);
+        box-shadow: 0 6px 18px rgba(63, 28, 31, .06);
+        cursor: pointer;
+        font-size: 22px;
+      }
+      .box-dots { display: flex; align-items: center; justify-content: center; gap: 9px; }
+      .box-dot {
+        width: 9px;
+        height: 9px;
+        border: 0;
+        border-radius: 999px;
+        padding: 0;
+        background: rgba(93, 19, 40, .2);
+        cursor: pointer;
+        transition: width .2s, background .2s;
+      }
+      .box-dot.active { width: 28px; background: var(--burgundy); }
       .opening {
         min-height: 0;
         margin: 18px 12px 26px;
@@ -419,8 +483,7 @@
       .open-btn { border-radius: 13px; }
       .secondary-btn { min-height: 54px; padding-inline: 14px; border-radius: 13px; }
       .trust { display: none; }
-      .site-footer { padding: 12px 16px max(34px, env(safe-area-inset-bottom)); font-size: 8px; }
-      .site-footer p:last-child { display: none; }
+      .site-footer { flex-direction: column; gap: 8px; padding: 12px 16px max(34px, env(safe-area-inset-bottom)); font-size: 8px; }
       .modal { padding: 0; align-items: end; }
       .modal-sheet { width: 100%; max-height: calc(100dvh - max(12px, env(safe-area-inset-top))); padding: 28px 20px max(28px, env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; overscroll-behavior: contain; }
       .sheet-head { margin-bottom: 22px; }
@@ -461,9 +524,9 @@
 <body>
   <div class="shell">
     <header class="topbar">
-      <span class="top-note">The City Editions / 2026</span>
+      <span class="top-note">Mixed-designer purse drops / 2026</span>
       <div class="brand" aria-label="Bagbox home">Bagbox</div>
-      <button class="wallet" id="wallet-btn" type="button" aria-label="Open collection">
+      <button class="wallet" id="wallet-btn" type="button" aria-label="Open purse collection">
         <span>Wallet</span><strong id="balance">$2,000.00</strong><span class="wallet-mark"></span>
       </button>
     </header>
@@ -476,17 +539,17 @@
           <span class="opening-stamp" id="opening-stamp">Collection 04</span>
         </div>
         <div class="opening-panel">
-          <p class="kicker" id="opening-label">Paris Edit</p>
-          <h2 id="opening-title">The rarest expression of the house.</h2>
-          <p id="opening-description">Haute-couture finishing, deep wine leather, and luminous silk selected without compromise.</p>
+          <p class="kicker" id="opening-label">Selected box · Paris Edit</p>
+          <h2 id="opening-title">Our strongest luxury odds.</h2>
+          <p id="opening-description">The highest published chances for Chanel, Louis Vuitton, Prada, and other top-tier designer purses in the collection.</p>
           <div class="round-meta" aria-label="Current fairness commitment">
-            <div class="round-row"><span>Published odds</span><button class="text-link" id="odds-link" type="button">See every item</button></div>
+            <div class="round-row"><span>Published purse odds</span><button class="text-link" id="odds-link" type="button">See all purses</button></div>
             <div class="round-row"><span>Seed commitment</span><code id="commitment-short">Preparing…</code></div>
             <div class="round-row"><span>Round nonce</span><code id="nonce-display">0</code></div>
           </div>
           <div class="open-actions">
             <button class="open-btn" id="open-btn" type="button" disabled>
-              <span>Open collection</span><span class="open-cost" id="open-cost">$1,000.00</span>
+              <span>Open this box</span><span class="open-cost" id="open-cost">$1,000.00</span>
             </button>
             <button class="secondary-btn" id="proof-link" type="button">Fairness</button>
           </div>
@@ -496,38 +559,44 @@
       <section id="drops" aria-labelledby="drops-title">
         <div class="section-rule">
           <h2 id="drops-title">Choose a box</h2>
-          <span>Four city edits / Exact odds shown before opening</span>
+          <span>Select one / Premium odds improve with box price</span>
         </div>
         <div class="boxes" id="box-list"></div>
+        <div class="carousel-controls" role="group" aria-label="Choose a designer purse box">
+          <button class="carousel-arrow" id="previous-box" type="button" aria-label="Previous box">←</button>
+          <div class="box-dots" id="box-dots" aria-label="Box position"></div>
+          <button class="carousel-arrow" id="next-box" type="button" aria-label="Next box">→</button>
+        </div>
+        <span class="sr-only" id="box-status" role="status" aria-live="polite"></span>
       </section>
 
       <section class="trust" aria-labelledby="trust-title">
         <div>
-          <p class="kicker">The Bagbox standard</p>
-          <h2 id="trust-title">Nothing hidden behind the curtain.</h2>
+          <p class="kicker">A designer mix in every box</p>
+          <h2 id="trust-title">More ways to pull a bag you love.</h2>
         </div>
         <div class="trust-copy">
-          <div><h3>Visible value</h3><p>Prices, individual product probabilities, and estimated retail values appear before every opening. Your payment never changes the published distribution.</p></div>
-          <div><h3>Verifiable draw</h3><p>We commit to a secret seed before the purchase. After the draw, we reveal it so the commitment, HMAC result, roll, and selected product can all be reproduced.</p></div>
+          <div><h3>Contemporary to iconic</h3><p>Every box mixes accessible designer rewards from Kate Spade and Michael Kors with purses from Prada, Louis Vuitton, Chanel, and other leading houses.</p></div>
+          <div><h3>Better odds as you move up</h3><p>Higher-priced boxes publish stronger chances for premium-tier purses. Every included bag, estimated retail value, and individual probability is visible before you open.</p></div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>Real-money experience prototype. USD wallet values are simulated locally; no payment processor, fulfillment service, or cash-out is connected.</p>
-      <p>Adults 18+ only · Know your limits · Availability subject to local law</p>
+      <p>Experience prototype. Wallet values are simulated locally; no payment processor, fulfillment service, or cash-out is connected.</p>
+      <p>Bagbox is independent and is not affiliated with the featured designers. All trademarks belong to their respective owners.</p>
     </footer>
   </div>
 
   <div class="modal" id="odds-modal" role="dialog" aria-modal="true" aria-labelledby="odds-title">
     <div class="modal-sheet">
       <div class="sheet-head">
-        <div><p class="kicker" id="odds-kicker">Paris Edit</p><h2 id="odds-title">Every outcome,<br>before you open.</h2></div>
+        <div><p class="kicker" id="odds-kicker">Paris Edit</p><h2 id="odds-title">Every purse and probability,<br>before you open.</h2></div>
         <button class="close-btn" type="button" aria-label="Close">×</button>
       </div>
       <div class="odds-summary"><span id="odds-price">Entry $1,000.00</span><span id="odds-total">Total probability 100.00%</span></div>
       <div class="odds-list" id="odds-list"></div>
-      <p class="proof-intro">Probabilities apply independently to each opening. Retail values are estimates for physical products and are not guaranteed cash redemption values.</p>
+      <p class="proof-intro">Each opening awards one purse from this box's mixed-designer assortment. Probabilities apply independently, and higher-priced boxes offer stronger premium-tier odds. Retail values are estimates and are not guaranteed cash redemption values.</p>
     </div>
   </div>
 
@@ -558,11 +627,11 @@
     <div class="modal-sheet">
       <div class="reward-photo"><img id="reward-photo" src="./images/london-edit.png" alt="" decoding="async"></div>
       <div class="reward-copy">
-        <p class="kicker" id="reward-tier">Rare edition</p>
-        <h2 id="reward-name">Blush Drawstring</h2>
+        <p class="kicker" id="reward-tier">Chanel / Grail reward</p>
+        <h2 id="reward-name">Small Classic Handbag</h2>
         <p class="reward-value" id="reward-value">Estimated retail · $42.00</p>
         <p class="reward-chance" id="reward-chance">Published chance · 18.00%</p>
-        <button class="keep-btn" id="keep-btn" type="button">Add to collection</button>
+        <button class="keep-btn" id="keep-btn" type="button">Add purse to collection</button>
         <button class="text-link reward-proof" id="reward-proof-btn" type="button">View cryptographic receipt</button>
       </div>
     </div>
@@ -571,7 +640,7 @@
   <div class="modal" id="collection-modal" role="dialog" aria-modal="true" aria-labelledby="collection-title">
     <div class="modal-sheet">
       <div class="sheet-head">
-        <div><p class="kicker">Your acquisitions</p><h2 id="collection-title">The collection <span id="item-count">0</span></h2></div>
+        <div><p class="kicker">Your designer pulls</p><h2 id="collection-title">Purse collection <span id="item-count">0</span></h2></div>
         <button class="close-btn" type="button" aria-label="Close">×</button>
       </div>
       <div class="inventory-grid" id="inventory-grid"></div>
@@ -593,55 +662,55 @@
 
     const BOXES = [
       {
-        id: 'london', number: '01', name: 'London Edit', title: 'Heritage, cut with an edge.',
-        description: 'Structured oxblood leather, silk, and evening pieces shaped by modern British restraint.',
+        id: 'london', number: '01', name: 'London Edit', title: 'An accessible way into designer bags.',
+        description: 'A broad mix led by Kate Spade, Michael Kors, and Coach, with slimmer—but real—chances at Prada, Louis Vuitton, and Chanel.',
         price: 5000, boxImage: './images/london-box-green.png', openImage: './images/london-box-open.png', image: './images/london-edit.png', imagePosition: 'center',
         products: [
-          { name: 'Ivory Silk Square', tier: 'Essential', chance: 30, value: 2000, position: '79% 70%' },
-          { name: 'Plum Evening Pouch', tier: 'Signature', chance: 25, value: 4500, position: '31% 67%' },
-          { name: 'Oxblood Frame Bag', tier: 'Signature', chance: 18, value: 8000, position: '55% 54%' },
-          { name: 'Mayfair Top Handle', tier: 'Rare', chance: 12, value: 15000, position: '59% 48%' },
-          { name: 'Hand-Finished Attaché', tier: 'Exceptional', chance: 10, value: 30000, position: '61% 47%' },
-          { name: 'London Atelier No. 1', tier: 'One of one', chance: 5, value: 60000, position: '57% 46%' }
+          { brand: 'Kate Spade', name: 'Knott Medium Tote', tier: 'Essential', chance: 46, value: 29800, position: '79% 70%' },
+          { brand: 'Michael Kors', name: 'Laila Medium Satchel', tier: 'Essential', chance: 33, value: 39800, position: '31% 67%' },
+          { brand: 'Coach', name: 'Tabby Shoulder Bag', tier: 'Signature', chance: 12, value: 55000, position: '55% 54%' },
+          { brand: 'Prada', name: 'Re-Nylon Mini Bag', tier: 'Premium', chance: 5, value: 195000, position: '59% 48%' },
+          { brand: 'Louis Vuitton', name: 'Speedy 25', tier: 'Prestige', chance: 3, value: 182000, position: '61% 47%' },
+          { brand: 'Chanel', name: 'Small Classic Handbag', tier: 'Grail', chance: 1, value: 1080000, position: '57% 46%' }
         ]
       },
       {
-        id: 'new-york', number: '02', name: 'New York Edit', title: 'Downtown precision, uptown polish.',
-        description: 'Clean lines, black-cherry leather, and cool silver details for a sharper kind of classic.',
+        id: 'new-york', number: '02', name: 'New York Edit', title: 'More room for the icons.',
+        description: 'A balanced designer mix with improved odds for Prada, Louis Vuitton, Chanel, and other premium houses.',
         price: 10000, boxImage: './images/new-york-box.png', openImage: './images/new-york-box-open.png', image: './images/new-york-edit.png', imagePosition: 'center',
         products: [
-          { name: 'Studio Silver Cuff', tier: 'Essential', chance: 35, value: 4500, position: '46% 76%' },
-          { name: 'Blush Gallery Clutch', tier: 'Signature', chance: 25, value: 9000, position: '28% 67%' },
-          { name: 'Black Cherry Shoulder Bag', tier: 'Signature', chance: 18, value: 18000, position: '62% 54%' },
-          { name: 'Mercer Structured Bag', tier: 'Rare', chance: 12, value: 35000, position: '64% 52%' },
-          { name: 'Midtown Runway Sample', tier: 'Exceptional', chance: 7, value: 75000, position: '60% 49%' },
-          { name: 'New York One-of-One', tier: 'One of one', chance: 3, value: 150000, position: '63% 47%' }
+          { brand: 'Kate Spade', name: 'Deco Crossbody', tier: 'Essential', chance: 36, value: 32800, position: '46% 76%' },
+          { brand: 'Michael Kors', name: 'Nolita Shoulder Bag', tier: 'Essential', chance: 28, value: 45800, position: '28% 67%' },
+          { brand: 'Coach', name: 'Empire Carryall', tier: 'Signature', chance: 16, value: 89500, position: '62% 54%' },
+          { brand: 'Prada', name: 'Re-Edition 2005', tier: 'Premium', chance: 10, value: 220000, position: '64% 52%' },
+          { brand: 'Louis Vuitton', name: 'Neverfull MM', tier: 'Prestige', chance: 7, value: 203000, position: '60% 49%' },
+          { brand: 'Chanel', name: 'Mini Flap Bag', tier: 'Grail', chance: 3, value: 520000, position: '63% 47%' }
         ]
       },
       {
-        id: 'milan', number: '03', name: 'Milan Edit', title: 'Form, light, and Italian confidence.',
-        description: 'Sculptural silhouettes in oxblood and ivory, framed by warm travertine and muted brass.',
+        id: 'milan', number: '03', name: 'Milan Edit', title: 'Premium names move within reach.',
+        description: 'Stronger chances at Prada and Louis Vuitton, plus Chanel and standout purses from established contemporary labels.',
         price: 25000, boxImage: './images/milan-box-cognac.png', openImage: './images/milan-box-open.png', image: './images/milan-edit.png', imagePosition: 'center',
         products: [
-          { name: 'Brushed Brass Cuff', tier: 'Essential', chance: 35, value: 10000, position: '34% 80%' },
-          { name: 'Ivory Geometric Mini', tier: 'Signature', chance: 25, value: 22500, position: '31% 55%' },
-          { name: 'Oxblood Sculpted Hobo', tier: 'Signature', chance: 18, value: 45000, position: '65% 54%' },
-          { name: 'Via della Spiga Sample', tier: 'Rare', chance: 12, value: 85000, position: '67% 50%' },
-          { name: 'Hand-Draped Runway Bag', tier: 'Exceptional', chance: 7, value: 180000, position: '63% 48%' },
-          { name: 'Milan Atelier No. 1', tier: 'One of one', chance: 3, value: 400000, position: '66% 46%' }
+          { brand: 'Kate Spade', name: 'Hudson Convertible Crossbody', tier: 'Essential', chance: 25, value: 39800, position: '34% 80%' },
+          { brand: 'Michael Kors', name: 'Ludlow Shoulder Bag', tier: 'Essential', chance: 23, value: 55800, position: '31% 55%' },
+          { brand: 'Coach', name: 'Rogue Top Handle', tier: 'Signature', chance: 19, value: 99500, position: '65% 54%' },
+          { brand: 'Prada', name: 'Galleria Bag', tier: 'Premium', chance: 14, value: 460000, position: '67% 50%' },
+          { brand: 'Louis Vuitton', name: 'Capucines Mini', tier: 'Prestige', chance: 12, value: 730000, position: '63% 48%' },
+          { brand: 'Chanel', name: 'Chanel 19 Bag', tier: 'Grail', chance: 7, value: 700000, position: '66% 46%' }
         ]
       },
       {
-        id: 'paris', number: '04', name: 'Paris Edit', title: 'The rarest expression of the house.',
-        description: 'Haute-couture finishing, deep wine leather, and luminous silk selected without compromise.',
+        id: 'paris', number: '04', name: 'Paris Edit', title: 'Our strongest luxury odds.',
+        description: 'The highest published chances for Chanel, Louis Vuitton, Prada, and other top-tier designer purses in the collection.',
         price: 100000, boxImage: './images/paris-box.png', openImage: './images/paris-box-open.png', image: './images/paris-edit.png', imagePosition: 'center',
         products: [
-          { name: 'Ivory Atelier Silk', tier: 'Essential', chance: 35, value: 45000, position: '35% 77%' },
-          { name: 'Blush Salon Pouch', tier: 'Signature', chance: 25, value: 90000, position: '29% 55%' },
-          { name: 'Wine Sculpted Top Handle', tier: 'Signature', chance: 18, value: 180000, position: '62% 54%' },
-          { name: 'Rue Saint-Honoré Sample', tier: 'Rare', chance: 12, value: 350000, position: '64% 50%' },
-          { name: 'Couture Hand-Finished Bag', tier: 'Exceptional', chance: 7, value: 750000, position: '61% 47%' },
-          { name: 'Paris Pièce Unique', tier: 'One of one', chance: 3, value: 1800000, position: '63% 46%' }
+          { brand: 'Kate Spade', name: 'Collection Evening Bag', tier: 'Essential', chance: 18, value: 49800, position: '35% 77%' },
+          { brand: 'Michael Kors', name: 'Collection Leather Tote', tier: 'Essential', chance: 17, value: 69800, position: '29% 55%' },
+          { brand: 'Coach', name: 'Runway Rogue Bag', tier: 'Signature', chance: 18, value: 120000, position: '62% 54%' },
+          { brand: 'Prada', name: 'Cleo Shoulder Bag', tier: 'Premium', chance: 18, value: 380000, position: '64% 50%' },
+          { brand: 'Louis Vuitton', name: 'Capucines MM', tier: 'Prestige', chance: 17, value: 750000, position: '61% 47%' },
+          { brand: 'Chanel', name: 'Classic Flap Bag', tier: 'Grail', chance: 12, value: 1130000, position: '63% 46%' }
         ]
       }
     ];
@@ -749,6 +818,8 @@
 
     const $ = selector => document.querySelector(selector);
     const boxList = $('#box-list');
+    const boxDots = $('#box-dots');
+    const boxStatus = $('#box-status');
     const opening = $('#opening');
     const openBtn = $('#open-btn');
 
@@ -787,13 +858,20 @@
     function renderBoxes() {
       boxList.innerHTML = BOXES.map(box => `
         <button class="box-card ${box.id === state.selected.id ? 'active' : ''}" type="button" data-box="${box.id}" aria-pressed="${box.id === state.selected.id}">
+          <span class="selected-badge">Selected box</span>
           <span class="box-visual"><img src="${box.boxImage}" alt="${box.name} presentation box" style="object-position:${box.imagePosition}" loading="lazy" decoding="async"></span>
           <span class="box-meta">
-            <span class="box-number">Collection ${box.number} · ${box.products.length} possible pieces</span>
+            <span class="box-number">Collection ${box.number} · Designer purse assortment</span>
             <span class="box-name">${box.name}</span><span class="box-price">${money.format(box.price / 100)}</span>
             <span class="box-desc">${box.description}</span>
           </span>
         </button>`).join('');
+
+      boxDots.innerHTML = BOXES.map((box, index) => `
+        <button class="box-dot ${box.id === state.selected.id ? 'active' : ''}" type="button" data-carousel-box="${box.id}" aria-label="Select ${box.name}, box ${index + 1} of ${BOXES.length}" aria-pressed="${box.id === state.selected.id}"></button>`).join('');
+
+      const selectedIndex = BOXES.findIndex(box => box.id === state.selected.id);
+      boxStatus.textContent = `${state.selected.name} selected, box ${selectedIndex + 1} of ${BOXES.length}`;
     }
 
     function renderBalance() {
@@ -811,7 +889,7 @@
     function selectBox(id, scroll = true) {
       state.selected = BOXES.find(box => box.id === id) || BOXES[0];
       renderBoxes();
-      $('#opening-label').textContent = state.selected.name;
+      $('#opening-label').textContent = `Selected box · ${state.selected.name}`;
       $('#opening-title').textContent = state.selected.title;
       $('#opening-description').textContent = state.selected.description;
       $('#opening-stamp').textContent = `Collection ${state.selected.number}`;
@@ -824,6 +902,12 @@
       $('#opening-photo').style.objectPosition = state.selected.imagePosition;
       $('#opening-photo-open').style.objectPosition = state.selected.imagePosition;
       if (scroll && window.innerWidth < 901) opening.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function cycleBox(direction) {
+      const currentIndex = BOXES.findIndex(box => box.id === state.selected.id);
+      const nextIndex = (currentIndex + direction + BOXES.length) % BOXES.length;
+      selectBox(BOXES[nextIndex].id, false);
     }
 
     function renderOdds() {
@@ -856,7 +940,7 @@
     async function openBox() {
       if (state.opening || !state.round) return;
       if (state.balance < state.selected.price) {
-        showToast('Insufficient wallet balance for this collection.');
+        showToast('Insufficient wallet balance for this box.');
         return;
       }
 
@@ -892,7 +976,7 @@
     }
 
     function showReward(product) {
-      $('#reward-tier').textContent = `${product.brand ? `${product.brand} / ` : ''}${product.tier} edition`;
+      $('#reward-tier').textContent = `${product.brand ? `${product.brand} / ` : ''}${product.tier} reward`;
       $('#reward-name').textContent = product.name;
       $('#reward-value').textContent = `Estimated retail · ${money.format(product.value / 100)}`;
       $('#reward-chance').textContent = `Published chance · ${product.chance.toFixed(2)}%`;
@@ -915,7 +999,7 @@
       state.opening = false;
       openBtn.disabled = false;
       renderCommitment();
-      showToast('Added to your collection. A new seed is now committed.');
+      showToast('Purse added to your collection. A new seed is now committed.');
     }
 
     function renderProof() {
@@ -947,7 +1031,7 @@
       $('#item-count').textContent = state.inventory.length;
       const grid = $('#inventory-grid');
       if (!state.inventory.length) {
-        grid.innerHTML = '<div class="empty-state">Your collection is waiting.</div>';
+        grid.innerHTML = '<div class="empty-state">Your purse collection is waiting.</div>';
         return;
       }
       grid.innerHTML = state.inventory.map(item => `
@@ -978,10 +1062,40 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
     }
 
+    let carouselTouchStartX = null;
+    let carouselTouchStartY = null;
+    let ignoreCarouselClickUntil = 0;
+
     boxList.addEventListener('click', event => {
+      if (Date.now() < ignoreCarouselClickUntil) return;
       const card = event.target.closest('[data-box]');
       if (card) selectBox(card.dataset.box);
     });
+
+    boxDots.addEventListener('click', event => {
+      const dot = event.target.closest('[data-carousel-box]');
+      if (dot) selectBox(dot.dataset.carouselBox, false);
+    });
+
+    $('#previous-box').addEventListener('click', () => cycleBox(-1));
+    $('#next-box').addEventListener('click', () => cycleBox(1));
+
+    boxList.addEventListener('touchstart', event => {
+      if (window.innerWidth > 560) return;
+      carouselTouchStartX = event.touches[0].clientX;
+      carouselTouchStartY = event.touches[0].clientY;
+    }, { passive: true });
+
+    boxList.addEventListener('touchend', event => {
+      if (window.innerWidth > 560 || carouselTouchStartX === null) return;
+      const deltaX = event.changedTouches[0].clientX - carouselTouchStartX;
+      const deltaY = event.changedTouches[0].clientY - carouselTouchStartY;
+      carouselTouchStartX = null;
+      carouselTouchStartY = null;
+      if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+      ignoreCarouselClickUntil = Date.now() + 500;
+      cycleBox(deltaX < 0 ? 1 : -1);
+    }, { passive: true });
 
     openBtn.addEventListener('click', openBox);
     $('#odds-link').addEventListener('click', () => { renderOdds(); showModal($('#odds-modal')); });
