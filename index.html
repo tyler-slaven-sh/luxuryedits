@@ -86,22 +86,7 @@
     .wallet strong { font-variant-numeric: tabular-nums; }
     .wallet-mark { width: 9px; height: 9px; border-radius: 50%; background: var(--burgundy); }
 
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(300px, .78fr) minmax(520px, 1.35fr);
-      min-height: 720px;
-      padding: 42px 0 92px;
-      gap: 52px;
-    }
-
-    .hero > *, .opening > *, .topbar > * { min-width: 0; }
-
-    .hero-copy {
-      align-self: center;
-      padding: 46px 0;
-      position: relative;
-      z-index: 2;
-    }
+    .opening > *, .topbar > * { min-width: 0; }
 
     .kicker {
       margin: 0 0 22px;
@@ -113,23 +98,6 @@
     }
 
     h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(64px, 7.2vw, 118px);
-      line-height: .84;
-      letter-spacing: -.055em;
-    }
-
-    h1 em { color: var(--burgundy); font-weight: 400; }
-
-    .hero-intro {
-      max-width: 410px;
-      margin: 34px 0 30px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.75;
-    }
 
     .text-link {
       border: 0;
@@ -144,34 +112,7 @@
       text-transform: uppercase;
     }
 
-    .hero-media { position: relative; min-height: 620px; margin: 0; overflow: hidden; background: var(--ivory-deep); }
-    .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .hero-caption {
-      position: absolute;
-      right: 20px;
-      bottom: 18px;
-      margin: 0;
-      color: rgba(255,255,255,.88);
-      font-size: 9px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-    }
-
-    .hero-index {
-      position: absolute;
-      left: -26px;
-      bottom: 36px;
-      width: 54px;
-      height: 54px;
-      display: grid;
-      place-items: center;
-      color: var(--ivory);
-      background: var(--burgundy);
-      font-family: var(--serif);
-      font-size: 18px;
-    }
+    #drops { padding-top: 56px; }
 
     .section-rule {
       display: flex;
@@ -372,10 +313,6 @@
       .topbar { height: 76px; grid-template-columns: 1fr auto; }
       .top-note { display: none; }
       .brand { justify-self: start; }
-      .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: 28px; padding: 34px 0 80px; }
-      .hero-copy { padding: 38px 0 18px; }
-      .hero-media { min-height: 0; aspect-ratio: 4 / 3; }
-      .hero-index { left: 18px; bottom: -20px; }
       .boxes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 18px; }
       .box-visual { height: auto; aspect-ratio: 4 / 5; }
       .opening { grid-template-columns: minmax(0, 1fr); margin-top: 90px; }
@@ -389,47 +326,103 @@
     }
 
     @media (max-width: 680px) {
-      .boxes { grid-template-columns: 1fr; }
+      .boxes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 560px) {
-      .shell { width: calc(100% - 24px); }
-      h1 { font-size: clamp(48px, 16vw, 66px); line-height: .88; }
-      .topbar { height: 68px; }
-      .brand { font-size: 20px; letter-spacing: .2em; }
-      .wallet { gap: 8px; font-size: 10px; }
+      body { background: #f2eee9; }
+      body::before { display: none; }
+      .shell { width: 100%; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 15;
+        height: calc(62px + env(safe-area-inset-top));
+        padding: env(safe-area-inset-top) 16px 0;
+        background: rgba(247, 241, 231, .9);
+        border-bottom-color: rgba(71, 39, 38, .1);
+        backdrop-filter: blur(18px) saturate(1.25);
+      }
+      .brand { font-size: 17px; font-weight: 600; letter-spacing: .18em; }
+      .wallet {
+        gap: 7px;
+        min-height: 36px;
+        padding: 0 11px;
+        border: 1px solid rgba(71, 39, 38, .1);
+        border-radius: 999px;
+        background: rgba(255, 253, 249, .8);
+        box-shadow: 0 5px 14px rgba(63, 28, 31, .06);
+        font-size: 10px;
+      }
       .wallet span:not(.wallet-mark), .top-note { display: none; }
-      .hero { gap: 20px; padding: 22px 0 64px; }
-      .hero-copy { padding: 30px 0 10px; }
-      .hero-intro { margin: 26px 0 24px; font-size: 13px; line-height: 1.65; }
-      .hero-media { aspect-ratio: 4 / 5; }
-      .hero-caption { right: 12px; bottom: 12px; }
-      .hero-index { left: 12px; bottom: 12px; width: 44px; height: 44px; }
-      .section-rule { align-items: flex-end; padding: 14px 0; }
-      .section-rule h2 { font-size: 39px; }
-      .section-rule span { max-width: 112px; text-align: right; line-height: 1.55; }
-      .boxes { margin-top: 20px; gap: 38px; }
-      .box-visual { aspect-ratio: 4 / 5; }
-      .box-meta { margin-top: 15px; }
-      .box-name { font-size: 27px; }
-      .box-desc { line-height: 1.55; }
-      .opening { margin-top: 72px; }
-      .opening-image { aspect-ratio: 4 / 3; }
-      .opening-stamp { top: 14px; left: 14px; }
-      .opening-panel { padding: 36px 20px 28px; }
-      .opening-panel h2 { font-size: clamp(42px, 13vw, 58px); }
-      .round-meta { margin: 28px 0 18px; padding: 14px 0; }
+      #drops { padding: 20px 12px 0; }
+      .section-rule {
+        display: block;
+        padding: 2px 2px 16px;
+        border: 0;
+      }
+      .section-rule h2 {
+        font: 700 28px/1.1 var(--sans);
+        letter-spacing: -.035em;
+      }
+      .section-rule span {
+        display: inline-block;
+        max-width: none;
+        margin-top: 7px;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.4;
+        letter-spacing: .1em;
+        text-align: left;
+      }
+      .boxes { margin-top: 0; gap: 12px; }
+      .box-card {
+        min-width: 0;
+        padding: 7px 7px 10px;
+        border: 1px solid rgba(71, 39, 38, .09);
+        border-radius: 18px;
+        background: var(--paper);
+        box-shadow: 0 8px 24px rgba(63, 28, 31, .055);
+        transition: border-color .2s, box-shadow .2s, transform .2s;
+      }
+      .box-card:active { transform: scale(.985); }
+      .box-card.active {
+        border-color: rgba(93, 19, 40, .65);
+        box-shadow: 0 0 0 2px rgba(93, 19, 40, .1), 0 10px 28px rgba(63, 28, 31, .09);
+      }
+      .box-visual { height: auto; aspect-ratio: 1; border-radius: 12px; }
+      .box-card.active .box-visual { box-shadow: none; }
+      .box-meta { grid-template-columns: minmax(0, 1fr) auto; gap: 5px 6px; margin: 10px 2px 1px; }
+      .box-number { overflow: hidden; color: var(--rose); font-size: 7px; letter-spacing: .1em; text-overflow: ellipsis; white-space: nowrap; }
+      .box-name { overflow: hidden; font: 650 14px/1.2 var(--sans); letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
+      .box-price { align-self: center; font-size: 10px; }
+      .box-desc { display: none; }
+      .opening {
+        min-height: 0;
+        margin: 18px 12px 26px;
+        overflow: hidden;
+        border: 1px solid rgba(71, 39, 38, .09);
+        border-radius: 20px;
+        box-shadow: 0 12px 34px rgba(63, 28, 31, .075);
+      }
+      .opening-image { display: none; }
+      .opening-panel { padding: 20px; }
+      .opening-panel .kicker { margin-bottom: 8px; }
+      .opening-panel h2 { margin-bottom: 10px; font: 650 24px/1.05 var(--sans); letter-spacing: -.035em; }
+      .opening-panel > p:not(.kicker) { font-size: 12px; line-height: 1.55; }
+      .round-meta { margin: 17px 0 14px; padding: 9px 0; }
       .round-row { align-items: center; gap: 12px; }
+      .round-row:nth-child(2), .round-row:nth-child(3) { display: none; }
       .round-row code { max-width: 48%; }
-      .open-actions { grid-template-columns: 1fr; }
+      .open-actions { grid-template-columns: 1fr auto; }
       .open-btn, .keep-btn { min-height: 54px; }
-      .secondary-btn { min-height: 48px; }
-      .trust { gap: 42px; margin-top: 82px; padding: 56px 0; }
-      .trust h2 { font-size: clamp(44px, 13vw, 60px); }
-      .trust-copy { grid-template-columns: 1fr; }
-      .site-footer { flex-direction: column; padding: 28px 0 max(56px, env(safe-area-inset-bottom)); }
+      .open-btn { border-radius: 13px; }
+      .secondary-btn { min-height: 54px; padding-inline: 14px; border-radius: 13px; }
+      .trust { display: none; }
+      .site-footer { padding: 12px 16px max(34px, env(safe-area-inset-bottom)); font-size: 8px; }
+      .site-footer p:last-child { display: none; }
       .modal { padding: 0; align-items: end; }
-      .modal-sheet { width: 100%; max-height: calc(100dvh - max(12px, env(safe-area-inset-top))); padding: 28px 20px max(28px, env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+      .modal-sheet { width: 100%; max-height: calc(100dvh - max(12px, env(safe-area-inset-top))); padding: 28px 20px max(28px, env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; overscroll-behavior: contain; }
       .sheet-head { margin-bottom: 22px; }
       .sheet-head h2 { font-size: clamp(36px, 11vw, 45px); }
       .close-btn { width: 44px; height: 44px; }
@@ -455,7 +448,6 @@
     }
 
     @media (max-width: 380px) {
-      .section-rule span { display: none; }
       .inventory-grid { grid-template-columns: 1fr; }
       .round-row { font-size: 9px; }
       .opening-panel { padding-inline: 16px; }
@@ -477,24 +469,10 @@
     </header>
 
     <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="kicker">Provably fair luxury drops</p>
-          <h1>Chance,<br>in <em>plain sight.</em></h1>
-          <p class="hero-intro">Open curated collections with USD. Every probability is published before purchase, and every result comes with a cryptographic receipt you can verify yourself.</p>
-          <button class="text-link" id="fair-link" type="button">How verification works</button>
-        </div>
-        <figure class="hero-media">
-          <img src="./images/paris-box.png" alt="Deep burgundy and blush couture presentation box in a Parisian salon" decoding="async" fetchpriority="high">
-          <figcaption class="hero-caption">The City Editions — 2026</figcaption>
-          <span class="hero-index" aria-hidden="true">01</span>
-        </figure>
-      </section>
-
       <section id="drops" aria-labelledby="drops-title">
         <div class="section-rule">
-          <h2 id="drops-title">The city edits</h2>
-          <span>Four city edits / Exact odds shown</span>
+          <h2 id="drops-title">Choose a box</h2>
+          <span>Four city edits / Exact odds shown before opening</span>
         </div>
         <div class="boxes" id="box-list"></div>
       </section>
@@ -1007,7 +985,6 @@
     openBtn.addEventListener('click', openBox);
     $('#odds-link').addEventListener('click', () => { renderOdds(); showModal($('#odds-modal')); });
     $('#proof-link').addEventListener('click', () => { renderProof(); showModal($('#fair-modal')); });
-    $('#fair-link').addEventListener('click', () => { renderProof(); showModal($('#fair-modal')); });
     $('#verify-btn').addEventListener('click', verifyLastDraw);
     $('#keep-btn').addEventListener('click', keepReward);
     $('#wallet-btn').addEventListener('click', () => { renderInventory(); showModal($('#collection-modal')); });
