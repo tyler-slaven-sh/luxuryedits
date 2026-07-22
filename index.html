@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f7f1e7">
+  <meta name="application-name" content="Luxury Edits">
+  <meta name="apple-mobile-web-app-title" content="Luxury Edits">
+  <meta property="og:site_name" content="Luxury Edits">
   <meta name="description" content="Luxury Edits offers mixed-designer purse boxes featuring Chanel, Louis Vuitton, Prada, Kate Spade, Michael Kors, and more, with every probability published before opening.">
-  <title>Luxury Edits — Designer purses, published odds</title>
+  <title>Luxury Edits</title>
   <style>
     :root {
       --ivory: #f7f1e7;
@@ -213,7 +216,7 @@
 
     .open-actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
 
-    .open-btn, .secondary-btn, .keep-btn {
+    .open-btn, .secondary-btn, .keep-btn, .buyback-btn {
       min-height: 58px;
       border: 1px solid var(--burgundy);
       cursor: pointer;
@@ -317,8 +320,12 @@
     .reward-copy { display: flex; flex-direction: column; justify-content: center; padding: 52px; }
     .reward-copy h2 { margin: 0; font-size: 54px; line-height: .9; letter-spacing: -.045em; }
     .reward-value { margin: 17px 0 8px; font-size: 14px; font-variant-numeric: tabular-nums; }
-    .reward-chance { margin: 0 0 30px; color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .reward-chance { margin: 0 0 8px; color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .buyback-offer { margin: 0 0 24px; color: var(--burgundy); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .reward-actions { display: grid; gap: 10px; }
     .keep-btn { width: 100%; color: var(--ivory); background: var(--burgundy); }
+    .buyback-btn { width: 100%; color: var(--burgundy); background: transparent; }
+    .keep-btn:disabled, .buyback-btn:disabled { opacity: .55; cursor: wait; }
     .reward-proof { margin-top: 15px; align-self: center; }
 
     .inventory-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -328,8 +335,10 @@
     .item-meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 5px; color: var(--muted); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
     .empty-state { grid-column: 1 / -1; padding: 70px 20px; border: 1px solid var(--line); text-align: center; color: var(--muted); font: 28px var(--serif); }
 
-    .toast { position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translate(-50%, 100px); padding: 14px 20px; color: var(--ivory); background: var(--burgundy-dark); font-size: 11px; transition: transform .35s; }
-    .toast.show { transform: translate(-50%, 0); }
+    .toast { position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translate(-50%, 100px); padding: 14px 20px; color: var(--ivory); background: var(--burgundy-dark); font-size: 11px; opacity: 0; visibility: hidden; transition: transform .35s, opacity .2s, visibility .35s; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
+
+    .mobile-nav { display: none; }
 
     @keyframes box-card-in {
       from { opacity: 0; transform: translateX(12px) scale(.985); }
@@ -364,7 +373,7 @@
     @media (max-width: 560px) {
       body { background: #f2eee9; }
       body::before { display: none; }
-      .shell { width: 100%; }
+      .shell { width: 100%; padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
       .topbar {
         position: sticky;
         top: 0;
@@ -470,7 +479,7 @@
       }
       .box-dot.active { width: 28px; background: var(--burgundy); }
       .opening { display: none; }
-      .open-btn, .keep-btn { min-height: 54px; }
+      .open-btn, .keep-btn, .buyback-btn { min-height: 54px; }
       .trust { display: none; }
       .site-footer { flex-direction: column; gap: 8px; padding: 12px 16px max(34px, env(safe-area-inset-bottom)); font-size: 8px; }
       .modal { padding: 0; align-items: end; }
@@ -495,8 +504,27 @@
       .reward-copy { padding: 28px 20px 8px; }
       .reward-copy h2 { font-size: clamp(40px, 12vw, 50px); }
       .reward-value { margin-top: 14px; }
-      .reward-chance { margin-bottom: 22px; }
-      .toast { width: calc(100% - 24px); bottom: max(12px, env(safe-area-inset-bottom)); text-align: center; }
+      .reward-chance { margin-bottom: 8px; }
+      .buyback-offer { margin-bottom: 18px; }
+      .mobile-nav {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 45;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(71, 39, 38, .1);
+        background: rgba(255, 253, 249, .92);
+        box-shadow: 0 -10px 30px rgba(63, 28, 31, .08);
+        backdrop-filter: blur(18px) saturate(1.25);
+      }
+      .mobile-nav-item { display: grid; justify-items: center; gap: 4px; min-width: 0; padding: 4px 2px; color: #978b87; font-size: 8px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; }
+      .mobile-nav-item.active { color: var(--burgundy); }
+      .mobile-nav-icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+      .mobile-nav-item.active .mobile-nav-icon { filter: drop-shadow(0 3px 5px rgba(93, 19, 40, .16)); }
+      .toast { width: calc(100% - 24px); bottom: calc(78px + env(safe-area-inset-bottom)); text-align: center; }
     }
 
     @media (max-width: 380px) {
@@ -538,7 +566,7 @@
           </div>
           <div class="open-actions">
             <button class="open-btn" id="open-btn" type="button" disabled>
-              <span>Open this box</span><span class="open-cost" id="open-cost">$50.00</span>
+              <span>Reveal my piece</span><span class="open-cost" id="open-cost">$50.00</span>
             </button>
             <button class="secondary-btn" id="proof-link" type="button">Fairness</button>
           </div>
@@ -620,7 +648,11 @@
         <h2 id="reward-name">Small Classic Handbag</h2>
         <p class="reward-value" id="reward-value">Estimated retail · $42.00</p>
         <p class="reward-chance" id="reward-chance">Published chance · 18.00%</p>
-        <button class="keep-btn" id="keep-btn" type="button">Add purse to collection</button>
+        <p class="buyback-offer" id="buyback-offer">Instant buyback offer · $29.40</p>
+        <div class="reward-actions">
+          <button class="keep-btn" id="ship-btn" type="button">Ship this to me</button>
+          <button class="buyback-btn" id="buyback-btn" type="button">Accept Instant Buyback</button>
+        </div>
         <button class="text-link reward-proof" id="reward-proof-btn" type="button">View cryptographic receipt</button>
       </div>
     </div>
@@ -638,9 +670,31 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <nav class="mobile-nav" aria-label="Preview navigation">
+    <span class="mobile-nav-item">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7.5a3 3 0 0 1 6 0c0 1.8-3 2-3 3.5"/><path d="m12 11-8 6h16l-8-6Z"/></svg>
+      <span>Closet</span>
+    </span>
+    <span class="mobile-nav-item">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><path d="M16.5 14.5h1"/></svg>
+      <span>Wallet</span>
+    </span>
+    <span class="mobile-nav-item active" aria-current="page">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"/><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/></svg>
+      <span>Runway</span>
+    </span>
+    <span class="mobile-nav-item">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6"/></svg>
+      <span>Profile</span>
+    </span>
+  </nav>
+
   <script>
+    document.title = 'Luxury Edits';
+
     const FALLBACK_PHOTO = './images/paris-edit.png';
     const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    const INSTANT_BUYBACK_RATE = 0.7;
     const TIER_WEIGHTS = {
       essential: 35,
       signature: 21.5,
@@ -860,7 +914,7 @@
             <div class="mobile-odds-row"><span>Published purse odds</span><button class="text-link" type="button" data-show-odds>See what's inside</button></div>
             <div class="mobile-open-actions">
               <button class="open-btn mobile-open-btn" type="button" data-open-box ${state.opening || !state.round ? 'disabled' : ''}>
-                <span>Open this box</span><span class="open-cost">${money.format(box.price / 100)}</span>
+                <span>Reveal my piece</span><span class="open-cost">${money.format(box.price / 100)}</span>
               </button>
               <button class="secondary-btn mobile-proof-btn" type="button" data-show-proof>Fairness</button>
             </div>
@@ -982,20 +1036,21 @@
     }
 
     function showReward(product) {
+      const buybackValue = Math.round(product.value * INSTANT_BUYBACK_RATE);
       $('#reward-tier').textContent = `${product.brand ? `${product.brand} / ` : ''}${product.tier} reward`;
       $('#reward-name').textContent = product.name;
       $('#reward-value').textContent = `Estimated retail · ${money.format(product.value / 100)}`;
       $('#reward-chance').textContent = `Published chance · ${product.chance.toFixed(2)}%`;
+      $('#buyback-offer').textContent = `Instant buyback offer · ${money.format(buybackValue / 100)}`;
       $('#reward-photo').src = product.image || FALLBACK_PHOTO;
       $('#reward-photo').alt = product.name;
       $('#reward-photo').style.objectPosition = product.position || 'center';
+      $('#ship-btn').disabled = false;
+      $('#buyback-btn').disabled = false;
       showModal($('#reward-modal'));
     }
 
-    async function keepReward() {
-      if (!state.pending) return;
-      state.inventory.unshift(state.pending);
-      localStorage.setItem('bagbox-city-inventory', JSON.stringify(state.inventory));
+    async function finishReward(message) {
       state.pending = null;
       hideModal($('#reward-modal'));
       opening.classList.remove('is-opening');
@@ -1006,7 +1061,26 @@
       state.opening = false;
       setOpeningDisabled(false);
       renderCommitment();
-      showToast('Purse added to your collection. A new seed is now committed.');
+      showToast(message);
+    }
+
+    async function shipReward() {
+      if (!state.pending) return;
+      $('#ship-btn').disabled = true;
+      $('#buyback-btn').disabled = true;
+      state.inventory.unshift(state.pending);
+      localStorage.setItem('bagbox-city-inventory', JSON.stringify(state.inventory));
+      await finishReward('Shipping selected. Your purse was added to your collection.');
+    }
+
+    async function acceptInstantBuyback() {
+      if (!state.pending) return;
+      $('#ship-btn').disabled = true;
+      $('#buyback-btn').disabled = true;
+      const buybackValue = Math.round(state.pending.value * INSTANT_BUYBACK_RATE);
+      state.balance += buybackValue;
+      renderBalance();
+      await finishReward(`Instant buyback accepted. ${money.format(buybackValue / 100)} was added to your wallet.`);
     }
 
     function renderProof() {
@@ -1122,7 +1196,8 @@
     $('#odds-link').addEventListener('click', () => { renderOdds(); showModal($('#odds-modal')); });
     $('#proof-link').addEventListener('click', () => { renderProof(); showModal($('#fair-modal')); });
     $('#verify-btn').addEventListener('click', verifyLastDraw);
-    $('#keep-btn').addEventListener('click', keepReward);
+    $('#ship-btn').addEventListener('click', shipReward);
+    $('#buyback-btn').addEventListener('click', acceptInstantBuyback);
     $('#wallet-btn').addEventListener('click', () => { renderInventory(); showModal($('#collection-modal')); });
     $('#reward-proof-btn').addEventListener('click', () => { renderProof(); showModal($('#fair-modal')); });
     $('#client-seed').addEventListener('change', event => localStorage.setItem('bagbox-client-seed', event.target.value.trim()));
