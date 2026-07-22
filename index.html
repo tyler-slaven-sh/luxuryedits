@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f7f1e7">
-  <meta name="description" content="Bagbox offers mixed-designer purse boxes featuring Chanel, Louis Vuitton, Prada, Kate Spade, Michael Kors, and more, with every probability published before opening.">
-  <title>Bagbox — Designer purses, published odds</title>
+  <meta name="description" content="Luxury Edits offers mixed-designer purse boxes featuring Chanel, Louis Vuitton, Prada, Kate Spade, Michael Kors, and more, with every probability published before opening.">
+  <title>Luxury Edits — Designer purses, published odds</title>
   <style>
     :root {
       --ivory: #f7f1e7;
@@ -67,6 +67,7 @@
       justify-self: center;
       font: 500 25px/1 var(--serif);
       letter-spacing: .25em;
+      white-space: nowrap;
       text-transform: uppercase;
     }
 
@@ -373,7 +374,7 @@
         border-bottom-color: rgba(71, 39, 38, .1);
         backdrop-filter: blur(18px) saturate(1.25);
       }
-      .brand { font-size: 17px; font-weight: 600; letter-spacing: .18em; }
+      .brand { font-size: 16px; font-weight: 600; letter-spacing: .14em; }
       .wallet {
         gap: 7px;
         min-height: 36px;
@@ -525,7 +526,7 @@
   <div class="shell">
     <header class="topbar">
       <span class="top-note">Mixed-designer purse drops / 2026</span>
-      <div class="brand" aria-label="Bagbox home">Bagbox</div>
+      <div class="brand" aria-label="Luxury Edits home">Luxury Edits</div>
       <button class="wallet" id="wallet-btn" type="button" aria-label="Open purse collection">
         <span>Wallet</span><strong id="balance">$2,000.00</strong><span class="wallet-mark"></span>
       </button>
@@ -534,22 +535,22 @@
     <main>
       <section class="opening" id="opening" aria-label="Selected collection">
         <div class="opening-image">
-          <img class="opening-photo-closed" id="opening-photo" src="./images/paris-box.png" alt="Closed Paris Edit presentation box" loading="lazy" decoding="async">
-          <img class="opening-photo-open" id="opening-photo-open" src="./images/paris-box-open.png" alt="Open Paris Edit presentation box" loading="lazy" decoding="async">
-          <span class="opening-stamp" id="opening-stamp">Collection 04</span>
+          <img class="opening-photo-closed" id="opening-photo" src="./images/london-box-green.png" alt="Closed London Edit presentation box" loading="lazy" decoding="async">
+          <img class="opening-photo-open" id="opening-photo-open" src="./images/london-box-open.png" alt="Open London Edit presentation box" loading="lazy" decoding="async">
+          <span class="opening-stamp" id="opening-stamp">Collection 01</span>
         </div>
         <div class="opening-panel">
-          <p class="kicker" id="opening-label">Selected box · Paris Edit</p>
-          <h2 id="opening-title">Our strongest luxury odds.</h2>
-          <p id="opening-description">The highest published chances for Chanel, Louis Vuitton, Prada, and other top-tier designer purses in the collection.</p>
+          <p class="kicker" id="opening-label">Selected box · London Edit</p>
+          <h2 id="opening-title">An accessible way into designer bags.</h2>
+          <p id="opening-description">A broad mix led by Kate Spade, Michael Kors, and Coach, with slimmer—but real—chances at Prada, Louis Vuitton, and Chanel.</p>
           <div class="round-meta" aria-label="Current fairness commitment">
-            <div class="round-row"><span>Published purse odds</span><button class="text-link" id="odds-link" type="button">See all purses</button></div>
+            <div class="round-row"><span>Published purse odds</span><button class="text-link" id="odds-link" type="button">See what's inside</button></div>
             <div class="round-row"><span>Seed commitment</span><code id="commitment-short">Preparing…</code></div>
             <div class="round-row"><span>Round nonce</span><code id="nonce-display">0</code></div>
           </div>
           <div class="open-actions">
             <button class="open-btn" id="open-btn" type="button" disabled>
-              <span>Open this box</span><span class="open-cost" id="open-cost">$1,000.00</span>
+              <span>Open this box</span><span class="open-cost" id="open-cost">$50.00</span>
             </button>
             <button class="secondary-btn" id="proof-link" type="button">Fairness</button>
           </div>
@@ -584,17 +585,17 @@
 
     <footer class="site-footer">
       <p>Experience prototype. Wallet values are simulated locally; no payment processor, fulfillment service, or cash-out is connected.</p>
-      <p>Bagbox is independent and is not affiliated with the featured designers. All trademarks belong to their respective owners.</p>
+      <p>Luxury Edits is independent and is not affiliated with the featured designers. All trademarks belong to their respective owners.</p>
     </footer>
   </div>
 
   <div class="modal" id="odds-modal" role="dialog" aria-modal="true" aria-labelledby="odds-title">
     <div class="modal-sheet">
       <div class="sheet-head">
-        <div><p class="kicker" id="odds-kicker">Paris Edit</p><h2 id="odds-title">Every purse and probability,<br>before you open.</h2></div>
+        <div><p class="kicker" id="odds-kicker">London Edit</p><h2 id="odds-title">Every purse and probability,<br>before you open.</h2></div>
         <button class="close-btn" type="button" aria-label="Close">×</button>
       </div>
-      <div class="odds-summary"><span id="odds-price">Entry $1,000.00</span><span id="odds-total">Total probability 100.00%</span></div>
+      <div class="odds-summary"><span id="odds-price">Entry $50.00</span><span id="odds-total">Total probability 100.00%</span></div>
       <div class="odds-list" id="odds-list"></div>
       <p class="proof-intro">Each opening awards one purse from this box's mixed-designer assortment. Probabilities apply independently, and higher-priced boxes offer stronger premium-tier odds. Retail values are estimates and are not guaranteed cash redemption values.</p>
     </div>
@@ -606,7 +607,7 @@
         <div><p class="kicker">Commit / reveal / verify</p><h2 id="fair-title">Provably fair,<br>by design.</h2></div>
         <button class="close-btn" type="button" aria-label="Close">×</button>
       </div>
-      <p class="proof-intro">Before you open, Bagbox publishes the SHA-256 commitment shown below. Your client seed and round nonce are combined with the hidden server seed using HMAC-SHA-256. Afterward, the server seed is revealed so the complete draw can be independently reproduced.</p>
+      <p class="proof-intro">Before you open, Luxury Edits publishes the SHA-256 commitment shown below. Your client seed and round nonce are combined with the hidden server seed using HMAC-SHA-256. Afterward, the server seed is revealed so the complete draw can be independently reproduced.</p>
       <div class="seed-control">
         <label for="client-seed">Your client seed</label>
         <input id="client-seed" type="text" maxlength="64" autocomplete="off" spellcheck="false">
@@ -806,7 +807,7 @@
     const storedNonce = Number(localStorage.getItem('bagbox-fair-nonce'));
 
     const state = {
-      selected: BOXES.find(box => box.id === 'paris') || BOXES[0],
+      selected: BOXES.find(box => box.id === 'london') || BOXES[0],
       balance: Number.isFinite(storedBalance) && storedBalance >= 0 ? storedBalance : 200000,
       inventory: Array.isArray(storedInventory) ? storedInventory : [],
       nonce: Number.isInteger(storedNonce) && storedNonce >= 0 ? storedNonce : 0,
