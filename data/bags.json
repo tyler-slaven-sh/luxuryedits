@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "chanel_lamb_26",
+    "name": "Fall Winter 2026 Pre-Collection Small Flap Bag",
+    "price": 590000,
+    "brand": "Chanel",
+    "edit": "Paris",
+    "tier": "Exceptional",
+    "imageName": "chanel_lamb_26.png",
+    "image": "./images/chanel_lamb_26.png"
+  }
+]
