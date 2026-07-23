@@ -1,0 +1,118 @@
+name: Run Monte Carlo simulator
+
+on:
+  workflow_dispatch:
+    inputs:
+      purses_csv:
+        description: Repository path to the purse CSV
+        required: true
+        default: data/bags.csv
+        type: string
+      odds_csv:
+        description: Repository path to the odds CSV with Return Rate
+        required: true
+        default: data/odds.csv
+        type: string
+      edit:
+        description: Edit to simulate; leave blank when the CSVs share one edit
+        required: false
+        default: ""
+        type: string
+      box_price:
+        description: Customer price for one reveal
+        required: true
+        default: "100"
+        type: string
+      simulations:
+        description: Number of independent Monte Carlo runs
+        required: true
+        default: "10000"
+        type: string
+      openings:
+        description: Box openings in each run
+        required: true
+        default: "1000"
+        type: string
+      confidence:
+        description: Confidence level for recommended starting cash
+        required: true
+        default: "0.99"
+        type: string
+      seed:
+        description: Reproducible random seed
+        required: true
+        default: "20260723"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      PURSES_CSV: ${{ inputs.purses_csv }}
+      ODDS_CSV: ${{ inputs.odds_csv }}
+      EDIT: ${{ inputs.edit }}
+      BOX_PRICE: ${{ inputs.box_price }}
+      SIMULATIONS: ${{ inputs.simulations }}
+      OPENINGS: ${{ inputs.openings }}
+      CONFIDENCE: ${{ inputs.confidence }}
+      SEED: ${{ inputs.seed }}
+      OUTPUT_DIR: simulation-results
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run simulator tests
+        run: python -B -m unittest discover -s tests
+
+      - name: Run Monte Carlo simulation
+        shell: bash
+        run: |
+          args=(
+            --purses "$PURSES_CSV"
+            --odds "$ODDS_CSV"
+            --box-price "$BOX_PRICE"
+            --simulations "$SIMULATIONS"
+            --openings "$OPENINGS"
+            --confidence "$CONFIDENCE"
+            --seed "$SEED"
+            --output-dir "$OUTPUT_DIR"
+          )
+
+          if [[ -n "$EDIT" ]]; then
+            args+=(--edit "$EDIT")
+          fi
+
+          python -B scripts/monte_carlo.py "${args[@]}"
+
+      - name: Add results to workflow summary
+        shell: bash
+        run: |
+          {
+            echo "## Monte Carlo results"
+            echo
+            echo '```csv'
+            cat "$OUTPUT_DIR/simulation_results.csv"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload simulation results
+        uses: actions/upload-artifact@v4
+        with:
+          name: luxury-edits-monte-carlo-${{ github.run_number }}
+          path: |
+            simulation-results/simulation_results.csv
+            simulation-results/purse_odds.csv
+            simulation-results/simulation_summary.json
+          if-no-files-found: error
+          retention-days: 30
