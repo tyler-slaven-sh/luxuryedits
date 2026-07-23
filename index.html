@@ -645,7 +645,7 @@
     <div class="modal-sheet">
       <div class="reward-photo"><img id="reward-photo" src="./images/london-edit.png" alt="" decoding="async"></div>
       <div class="reward-copy">
-        <p class="kicker" id="reward-tier">Chanel / Grail reward</p>
+        <p class="kicker" id="reward-tier">Chanel / One of one reward</p>
         <h2 id="reward-name">Small Classic Handbag</h2>
         <p class="reward-value" id="reward-value">Estimated retail · $42.00</p>
         <p class="reward-chance" id="reward-chance">Published chance · 18.00%</p>
@@ -696,14 +696,6 @@
     const FALLBACK_PHOTO = './images/paris-edit.png';
     const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
     const INSTANT_BUYBACK_RATE = 0.7;
-    const TIER_WEIGHTS = {
-      essential: 35,
-      signature: 21.5,
-      rare: 12,
-      exceptional: 7,
-      'one-of-one': 3
-    };
-
     const BOXES = [
       {
         id: 'london', number: '01', name: 'London Edit', title: 'An accessible way into designer bags.',
@@ -713,9 +705,9 @@
           { brand: 'Kate Spade', name: 'Knott Medium Tote', tier: 'Essential', chance: 46, value: 29800, position: '79% 70%' },
           { brand: 'Michael Kors', name: 'Laila Medium Satchel', tier: 'Essential', chance: 33, value: 39800, position: '31% 67%' },
           { brand: 'Coach', name: 'Tabby Shoulder Bag', tier: 'Signature', chance: 12, value: 55000, position: '55% 54%' },
-          { brand: 'Prada', name: 'Re-Nylon Mini Bag', tier: 'Premium', chance: 5, value: 195000, position: '59% 48%' },
-          { brand: 'Louis Vuitton', name: 'Speedy 25', tier: 'Prestige', chance: 3, value: 182000, position: '61% 47%' },
-          { brand: 'Chanel', name: 'Small Classic Handbag', tier: 'Grail', chance: 1, value: 1080000, position: '57% 46%' }
+          { brand: 'Prada', name: 'Re-Nylon Mini Bag', tier: 'Rare', chance: 5, value: 195000, position: '59% 48%' },
+          { brand: 'Louis Vuitton', name: 'Speedy 25', tier: 'Exceptional', chance: 3, value: 182000, position: '61% 47%' },
+          { brand: 'Chanel', name: 'Small Classic Handbag', tier: 'One of one', chance: 1, value: 1080000, position: '57% 46%' }
         ]
       },
       {
@@ -726,9 +718,9 @@
           { brand: 'Kate Spade', name: 'Deco Crossbody', tier: 'Essential', chance: 36, value: 32800, position: '46% 76%' },
           { brand: 'Michael Kors', name: 'Nolita Shoulder Bag', tier: 'Essential', chance: 28, value: 45800, position: '28% 67%' },
           { brand: 'Coach', name: 'Empire Carryall', tier: 'Signature', chance: 16, value: 89500, position: '62% 54%' },
-          { brand: 'Prada', name: 'Re-Edition 2005', tier: 'Premium', chance: 10, value: 220000, position: '64% 52%' },
-          { brand: 'Louis Vuitton', name: 'Neverfull MM', tier: 'Prestige', chance: 7, value: 203000, position: '60% 49%' },
-          { brand: 'Chanel', name: 'Mini Flap Bag', tier: 'Grail', chance: 3, value: 520000, position: '63% 47%' }
+          { brand: 'Prada', name: 'Re-Edition 2005', tier: 'Rare', chance: 10, value: 220000, position: '64% 52%' },
+          { brand: 'Louis Vuitton', name: 'Neverfull MM', tier: 'Exceptional', chance: 7, value: 203000, position: '60% 49%' },
+          { brand: 'Chanel', name: 'Mini Flap Bag', tier: 'One of one', chance: 3, value: 520000, position: '63% 47%' }
         ]
       },
       {
@@ -739,9 +731,9 @@
           { brand: 'Kate Spade', name: 'Hudson Convertible Crossbody', tier: 'Essential', chance: 25, value: 39800, position: '34% 80%' },
           { brand: 'Michael Kors', name: 'Ludlow Shoulder Bag', tier: 'Essential', chance: 23, value: 55800, position: '31% 55%' },
           { brand: 'Coach', name: 'Rogue Top Handle', tier: 'Signature', chance: 19, value: 99500, position: '65% 54%' },
-          { brand: 'Prada', name: 'Galleria Bag', tier: 'Premium', chance: 14, value: 460000, position: '67% 50%' },
-          { brand: 'Louis Vuitton', name: 'Capucines Mini', tier: 'Prestige', chance: 12, value: 730000, position: '63% 48%' },
-          { brand: 'Chanel', name: 'Chanel 19 Bag', tier: 'Grail', chance: 7, value: 700000, position: '66% 46%' }
+          { brand: 'Prada', name: 'Galleria Bag', tier: 'Rare', chance: 14, value: 460000, position: '67% 50%' },
+          { brand: 'Louis Vuitton', name: 'Capucines Mini', tier: 'Exceptional', chance: 12, value: 730000, position: '63% 48%' },
+          { brand: 'Chanel', name: 'Chanel 19 Bag', tier: 'One of one', chance: 7, value: 700000, position: '66% 46%' }
         ]
       },
       {
@@ -752,9 +744,9 @@
           { brand: 'Kate Spade', name: 'Collection Evening Bag', tier: 'Essential', chance: 18, value: 49800, position: '35% 77%' },
           { brand: 'Michael Kors', name: 'Collection Leather Tote', tier: 'Essential', chance: 17, value: 69800, position: '29% 55%' },
           { brand: 'Coach', name: 'Runway Rogue Bag', tier: 'Signature', chance: 18, value: 120000, position: '62% 54%' },
-          { brand: 'Prada', name: 'Cleo Shoulder Bag', tier: 'Premium', chance: 18, value: 380000, position: '64% 50%' },
-          { brand: 'Louis Vuitton', name: 'Capucines MM', tier: 'Prestige', chance: 17, value: 750000, position: '61% 47%' },
-          { brand: 'Chanel', name: 'Classic Flap Bag', tier: 'Grail', chance: 12, value: 1130000, position: '63% 46%' }
+          { brand: 'Prada', name: 'Cleo Shoulder Bag', tier: 'Rare', chance: 18, value: 380000, position: '64% 50%' },
+          { brand: 'Louis Vuitton', name: 'Capucines MM', tier: 'Exceptional', chance: 17, value: 750000, position: '61% 47%' },
+          { brand: 'Chanel', name: 'Classic Flap Bag', tier: 'One of one', chance: 12, value: 1130000, position: '63% 46%' }
         ]
       }
     ];
@@ -775,20 +767,14 @@
       return normalizeKey(value).replace(/-edit$/, '');
     }
 
-    function tierWeight(tier) {
-      return TIER_WEIGHTS[normalizeKey(tier)] || 10;
-    }
-
     function productsFromCatalog(records) {
-      const weights = records.map(record => tierWeight(record.tier));
-      const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
       let allocatedChance = 0;
 
       return records.map((record, index) => {
         const isLast = index === records.length - 1;
         const chance = isLast
           ? Number((100 - allocatedChance).toFixed(6))
-          : Number(((weights[index] / totalWeight) * 100).toFixed(6));
+          : Number((100 / records.length).toFixed(6));
         allocatedChance += chance;
 
         return {
@@ -841,6 +827,129 @@
         console.warn('Could not load data/bags.json; using the built-in demo catalog.', error);
         return 0;
       }
+    }
+
+    async function loadOddsTable() {
+      try {
+        const response = await fetch('./data/odds.json', { cache: 'no-cache' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const table = await response.json();
+        if (!Array.isArray(table)) throw new Error('The odds table root must be an array.');
+
+        const oddsByEdit = new Map();
+        table.forEach((record, index) => {
+          const edit = normalizeEditId(record?.edit);
+          const tier = normalizeKey(record?.tier);
+          const odds = Number(record?.odds);
+          const priceRange = record?.price_range;
+          if (!BOXES.some(box => box.id === edit)
+              || !tier
+              || !Number.isFinite(odds)
+              || odds < 0
+              || odds > 1
+              || typeof priceRange !== 'string'
+              || !/^\d+(?:\.\d+)?(?:-\d+(?:\.\d+)?|\+)$/.test(priceRange)) {
+            throw new Error(`Invalid odds row ${index + 1}.`);
+          }
+
+          const rows = oddsByEdit.get(edit) || [];
+          if (rows.some(row => row.tierKey === tier)) {
+            throw new Error(`Duplicate tier '${record.tier}' for ${edit}.`);
+          }
+          rows.push({ ...record, edit, tierKey: tier, odds, priceRange });
+          oddsByEdit.set(edit, rows);
+        });
+
+        BOXES.forEach(box => {
+          const rows = oddsByEdit.get(box.id) || [];
+          const total = rows.reduce((sum, row) => sum + row.odds, 0);
+          if (Math.abs(total - 1) > 1e-9) {
+            throw new Error(`Odds for ${box.name} total ${total.toFixed(6)} instead of 1.00.`);
+          }
+        });
+
+        console.info(`Loaded ${table.length} odds row(s) from data/odds.json.`);
+        return oddsByEdit;
+      } catch (error) {
+        console.warn('Could not load data/odds.json; using the catalog fallback odds.', error);
+        return null;
+      }
+    }
+
+    function priceIsInRange(priceInCents, priceRange) {
+      const match = /^(\d+(?:\.\d+)?)(?:-(\d+(?:\.\d+)?)|(\+))$/.exec(priceRange);
+      if (!match) return false;
+      const price = priceInCents / 100;
+      const minimum = Number(match[1]);
+      const maximum = match[2] === undefined ? Infinity : Number(match[2]);
+      return price >= minimum && price <= maximum;
+    }
+
+    function applyOddsTable(oddsByEdit) {
+      if (!oddsByEdit) return 0;
+      let appliedEdits = 0;
+
+      BOXES.forEach(box => {
+        const rows = oddsByEdit.get(box.id) || [];
+        const productsByTier = new Map();
+        box.products.forEach(product => {
+          const tier = normalizeKey(product.tier);
+          const products = productsByTier.get(tier) || [];
+          products.push(product);
+          productsByTier.set(tier, products);
+        });
+
+        const availableRows = rows.filter(row => (productsByTier.get(row.tierKey) || []).length > 0);
+        const availableTotal = availableRows.reduce((sum, row) => sum + row.odds, 0);
+        if (availableTotal <= 0) {
+          console.warn(`No configured odds could be applied to ${box.name}.`);
+          return;
+        }
+
+        const missingTiers = rows
+          .filter(row => row.odds > 0 && !(productsByTier.get(row.tierKey) || []).length)
+          .map(row => row.tier);
+        if (missingTiers.length) {
+          console.warn(`${box.name} has no inventory for: ${missingTiers.join(', ')}. Available tier odds were normalized to 100%.`);
+        }
+
+        const configuredTierKeys = new Set(rows.map(row => row.tierKey));
+        const unknownTiers = [...productsByTier.keys()].filter(tier => !configuredTierKeys.has(tier));
+        if (unknownTiers.length) {
+          console.warn(`${box.name} has inventory tiers missing from the odds table: ${unknownTiers.join(', ')}. Those items receive 0% odds.`);
+        }
+
+        box.products.forEach(product => {
+          product.chance = 0;
+          delete product.priceRange;
+        });
+
+        const assignments = [];
+        availableRows.forEach(row => {
+          const products = productsByTier.get(row.tierKey);
+          const chancePerProduct = (row.odds / availableTotal) * 100 / products.length;
+          products.forEach(product => {
+            product.priceRange = row.priceRange;
+            assignments.push({ product, chance: chancePerProduct });
+            if (!priceIsInRange(product.value, row.priceRange)) {
+              console.warn(`${product.brand} ${product.name} is outside its configured ${row.priceRange} USD price range.`);
+            }
+          });
+        });
+
+        let allocatedChance = 0;
+        assignments.forEach((assignment, index) => {
+          const chance = index === assignments.length - 1
+            ? Number((100 - allocatedChance).toFixed(6))
+            : Number(assignment.chance.toFixed(6));
+          assignment.product.chance = chance;
+          allocatedChance += chance;
+        });
+        appliedEdits += 1;
+      });
+
+      return appliedEdits;
     }
 
     const WALLET_STORAGE_KEY = 'bagbox-city-balance-v2';
@@ -1223,6 +1332,7 @@
       });
       $('#client-seed').value = localStorage.getItem('bagbox-client-seed') || randomHex(12);
       await loadBagCatalog();
+      applyOddsTable(await loadOddsTable());
       renderBoxes();
       renderBalance();
       selectBox(state.selected.id, false);
