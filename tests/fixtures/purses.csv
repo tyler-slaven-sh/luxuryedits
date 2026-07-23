@@ -1,0 +1,4 @@
+id,name,price,brand,edit,tier,image_name
+1,Example Studio Bag,80,Example Brand,New York,Studio,studio.webp
+2,Example Runway Bag A,140,Example Brand,New York,Runway,runway-a.webp
+3,Example Runway Bag B,150,Example Brand,New York,Runway,runway-b.webp
