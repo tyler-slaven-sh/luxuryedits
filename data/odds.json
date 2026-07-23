@@ -1,0 +1,38 @@
+[
+  {
+    "tier": "Chic",
+    "edit": "new-york",
+    "price_range": "40-44",
+    "odds": 0.18
+  },
+  {
+    "tier": "Studio",
+    "edit": "new-york",
+    "price_range": "45-99",
+    "odds": 0.32
+  },
+  {
+    "tier": "Signature",
+    "edit": "new-york",
+    "price_range": "100-124",
+    "odds": 0.17
+  },
+  {
+    "tier": "Runway",
+    "edit": "new-york",
+    "price_range": "125-159",
+    "odds": 0.23
+  },
+  {
+    "tier": "Couture",
+    "edit": "new-york",
+    "price_range": "160-194",
+    "odds": 0.076
+  },
+  {
+    "tier": "Icon",
+    "edit": "new-york",
+    "price_range": "195-4000",
+    "odds": 0.024
+  }
+]
