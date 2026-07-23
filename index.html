@@ -306,6 +306,10 @@
     .sheet-head h2 { margin: 0; font-size: 45px; line-height: .95; letter-spacing: -.04em; }
     .close-btn { flex: 0 0 auto; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; background: transparent; cursor: pointer; font-size: 18px; }
     .modal-exit {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 90;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -321,6 +325,9 @@
       letter-spacing: .1em;
       text-transform: uppercase;
       backdrop-filter: blur(12px);
+      pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
     .modal-exit-mark { font-size: 17px; font-weight: 400; line-height: 1; }
     .modal-exit:active { transform: scale(.96); }
@@ -840,12 +847,12 @@
   </div>
 
   <div class="modal contents-modal" id="contents-modal" role="dialog" aria-modal="true" aria-labelledby="contents-title">
+    <button class="close-btn modal-exit" type="button" aria-label="Close">
+      <span class="modal-exit-label">Close</span><span class="modal-exit-mark" aria-hidden="true">×</span>
+    </button>
     <div class="modal-sheet">
       <div class="sheet-head">
         <div><p class="kicker" id="contents-kicker">New York Edit</p><h2 id="contents-title">See what's inside.</h2></div>
-        <button class="close-btn modal-exit" type="button" aria-label="Close">
-          <span class="modal-exit-label">Close</span><span class="modal-exit-mark" aria-hidden="true">×</span>
-        </button>
       </div>
       <div class="odds-summary"><span id="contents-price">Entry $100.00</span><span id="contents-count">28 possible pieces</span></div>
       <div class="contents-gallery" id="contents-list"></div>
@@ -854,12 +861,12 @@
   </div>
 
   <div class="modal" id="tier-odds-modal" role="dialog" aria-modal="true" aria-labelledby="tier-odds-title">
+    <button class="close-btn modal-exit" type="button" aria-label="Close">
+      <span class="modal-exit-label">Close</span><span class="modal-exit-mark" aria-hidden="true">×</span>
+    </button>
     <div class="modal-sheet">
       <div class="sheet-head">
         <div><p class="kicker" id="tier-odds-kicker">New York Edit</p><h2 id="tier-odds-title">Purse Odds</h2></div>
-        <button class="close-btn modal-exit" type="button" aria-label="Close">
-          <span class="modal-exit-label">Close</span><span class="modal-exit-mark" aria-hidden="true">×</span>
-        </button>
       </div>
       <div class="odds-summary"><span>Published by tier</span><span id="tier-odds-total">Total probability 100%</span></div>
       <div class="tier-odds-list" id="tier-odds-list"></div>
@@ -1677,6 +1684,7 @@
       modal._returnFocus = document.activeElement;
       if (sheet) sheet.scrollTop = 0;
       modal.setAttribute('aria-hidden', 'false');
+      modal.style.pointerEvents = 'auto';
       modal.classList.add('show');
       document.body.style.overflow = 'hidden';
       setTimeout(() => {
@@ -1691,6 +1699,7 @@
       const returnFocus = modal._returnFocus;
       modal.classList.remove('show');
       modal.setAttribute('aria-hidden', 'true');
+      modal.style.pointerEvents = 'none';
       if (sheet) sheet.scrollTop = 0;
       document.body.style.overflow = document.querySelector('.modal.show') ? 'hidden' : '';
       setTimeout(() => {
@@ -1774,11 +1783,15 @@
     $('#reward-proof-btn').addEventListener('click', () => { renderProof(); showModal($('#fair-modal')); });
     $('#client-seed').addEventListener('change', event => localStorage.setItem('bagbox-client-seed', event.target.value.trim()));
 
-    document.querySelectorAll('.close-btn').forEach(button => button.addEventListener('click', event => {
-      event.preventDefault();
-      event.stopPropagation();
-      hideModal(button.closest('.modal'));
-    }));
+    document.querySelectorAll('.close-btn').forEach(button => {
+      const dismiss = event => {
+        event.preventDefault();
+        event.stopPropagation();
+        hideModal(button.closest('.modal'));
+      };
+      button.addEventListener('touchend', dismiss, { passive: false });
+      button.addEventListener('click', dismiss);
+    });
     document.querySelectorAll('.modal').forEach(modal => modal.addEventListener('click', event => {
       if (event.target === modal && modal.id !== 'reward-modal') hideModal(modal);
     }));
