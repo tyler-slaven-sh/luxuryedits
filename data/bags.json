@@ -220,16 +220,6 @@
     "image": "./images/coach_elora.webp"
   },
   {
-    "id": "23",
-    "name": "Small Check Cotswolds Tote",
-    "price": 259500,
-    "brand": "Burberry",
-    "edit": "New York",
-    "tier": "Icon",
-    "imageName": "burb_cots.webp",
-    "image": "./images/burb_cots.webp"
-  },
-  {
     "id": "24",
     "name": "Tabby 26 Loved Leather Shoulder Bag",
     "price": 47500,
@@ -238,16 +228,6 @@
     "tier": "Icon",
     "imageName": "coach_tabby.webp",
     "image": "./images/coach_tabby.webp"
-  },
-  {
-    "id": "25",
-    "name": "Paparazzo large top handle bag",
-    "price": 365000,
-    "brand": "Gucci",
-    "edit": "New York",
-    "tier": "Icon",
-    "imageName": "gucci_pap.webp",
-    "image": "./images/gucci_pap.webp"
   },
   {
     "id": "26",
@@ -260,23 +240,53 @@
     "image": "./images/gucci_buc.webp"
   },
   {
-    "id": "27",
-    "name": "Rivière Mini Canvas Tote",
-    "price": 169000,
-    "brand": "Versace",
-    "edit": "New York",
-    "tier": "Icon",
-    "imageName": "vers_rivi.avif",
-    "image": "./images/vers_rivi.avif"
-  },
-  {
     "id": "28",
     "name": "Rivière Large Canvas Tote",
     "price": 195000,
     "brand": "Versace",
     "edit": "New York",
     "tier": "Icon",
-    "imageName": "vers_rivl.avif",
-    "image": "./images/vers_rivl.avif"
+    "imageName": "vers_rivl.webp",
+    "image": "./images/vers_rivl.webp"
+  },
+  {
+    "id": "29",
+    "name": "Prada Re-Edition 2005 Re-Nylon bag",
+    "price": 225000,
+    "brand": "Prada",
+    "edit": "New York",
+    "tier": "Icon",
+    "imageName": "prada_reed.avif",
+    "image": "./images/prada_reed.avif"
+  },
+  {
+    "id": "30",
+    "name": "Women's Rodeo Handbag Small in Black",
+    "price": 365000,
+    "brand": "Balenciaga",
+    "edit": "New York",
+    "tier": "Icon",
+    "imageName": "balen_rodeo.jpg",
+    "image": "./images/balen_rodeo.jpg"
+  },
+  {
+    "id": "31",
+    "name": "LE 5 À 7 supple small in raffia and leather",
+    "price": 230000,
+    "brand": "Saint Laurent",
+    "edit": "New York",
+    "tier": "Icon",
+    "imageName": "ysl_sup.avif",
+    "image": "./images/ysl_sup.avif"
+  },
+  {
+    "id": "32",
+    "name": "Medium leather top-handle bag",
+    "price": 325000,
+    "brand": "Prada",
+    "edit": "New York",
+    "tier": "Icon",
+    "imageName": "prada_top.avif",
+    "image": "./images/prada_top.avif"
   }
 ]
