@@ -7,7 +7,7 @@
   <meta name="application-name" content="Luxury Edits">
   <meta name="apple-mobile-web-app-title" content="Luxury Edits">
   <meta property="og:site_name" content="Luxury Edits">
-  <meta name="description" content="Luxury Edits offers mixed-designer purse boxes featuring Chanel, Louis Vuitton, Prada, Kate Spade, Michael Kors, and more, with every probability published before opening.">
+  <meta name="description" content="Explore the New York Edit: a published-odds mix of bags and accessories from Lululemon, Kate Spade, Michael Kors, Coach, Saint Laurent, Burberry, Gucci, Versace, and more.">
   <title>Luxury Edits</title>
   <style>
     :root {
@@ -169,6 +169,17 @@
     }
 
     .box-card.active .selected-badge { opacity: 1; transform: none; }
+
+    .box-card.coming-soon { color: #918b88; }
+    .box-card.coming-soon .box-select { cursor: not-allowed; opacity: 1; }
+    .box-card.coming-soon .box-visual { background: #e7e4e1; }
+    .box-card.coming-soon .box-visual img { opacity: .35; filter: grayscale(1); }
+    .box-card.coming-soon:hover .box-visual img { transform: none; }
+    .box-card.coming-soon .selected-badge { opacity: 1; background: #716d6b; transform: none; }
+    .box-card.coming-soon.active .box-visual { box-shadow: inset 0 0 0 3px #9b9693; }
+    .box-card.coming-soon .text-link { opacity: .45; cursor: not-allowed; }
+    .box-card.coming-soon .open-btn:disabled,
+    .box-card.coming-soon .secondary-btn:disabled { opacity: .42; cursor: not-allowed; }
 
     .box-meta { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 18px; }
     .box-number { grid-column: 1 / -1; color: var(--rose); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
@@ -436,6 +447,7 @@
         box-shadow: 0 0 0 2px rgba(93, 19, 40, .1), 0 10px 28px rgba(63, 28, 31, .09);
         animation: box-card-in .28s cubic-bezier(.2, .8, .2, 1);
       }
+      .box-card.coming-soon.active { border-color: rgba(90, 86, 83, .35); box-shadow: 0 8px 24px rgba(63, 28, 31, .045); }
       .selected-badge { top: 18px; left: 18px; padding: 9px 11px; }
       .box-visual { height: auto; aspect-ratio: 4 / 3; border-radius: 15px; }
       .box-card.active .box-visual { box-shadow: none; }
@@ -479,6 +491,8 @@
         transition: width .2s, background .2s;
       }
       .box-dot.active { width: 28px; background: var(--burgundy); }
+      .box-dot.coming-soon { background: rgba(90, 86, 83, .22); }
+      .box-dot.coming-soon.active { background: #777270; }
       .opening { display: none; }
       .open-btn, .keep-btn, .buyback-btn { min-height: 54px; }
       .trust { display: none; }
@@ -542,7 +556,7 @@
 <body>
   <div class="shell">
     <header class="topbar">
-      <span class="top-note">Mixed-designer purse drops / 2026</span>
+      <span class="top-note">Curated bags and accessories / New York 2026</span>
       <div class="brand" aria-label="Luxury Edits home">Luxury Edits</div>
       <button class="wallet" id="wallet-btn" type="button" aria-label="Open purse collection">
         <span>Wallet</span><strong id="balance">$2,000.00</strong><span class="wallet-mark"></span>
@@ -552,14 +566,14 @@
     <main>
       <section class="opening" id="opening" aria-label="Selected collection">
         <div class="opening-image">
-          <img class="opening-photo-closed" id="opening-photo" src="./images/luxury-edits-trunk.webp" alt="Closed London Edit presentation box" loading="lazy" decoding="async">
-          <img class="opening-photo-open" id="opening-photo-open" src="./images/luxury-edits-trunk.webp" alt="Open London Edit presentation box" loading="lazy" decoding="async">
-          <span class="opening-stamp" id="opening-stamp">Collection 01</span>
+          <img class="opening-photo-closed" id="opening-photo" src="./images/luxury-edits-trunk.webp" alt="Closed New York Edit presentation box" loading="lazy" decoding="async">
+          <img class="opening-photo-open" id="opening-photo-open" src="./images/luxury-edits-trunk.webp" alt="Open New York Edit presentation box" loading="lazy" decoding="async">
+          <span class="opening-stamp" id="opening-stamp">Collection 02</span>
         </div>
         <div class="opening-panel">
-          <p class="kicker" id="opening-label">Selected box · London Edit</p>
-          <h2 id="opening-title">An accessible way into designer bags.</h2>
-          <p id="opening-description">A broad mix led by Kate Spade, Michael Kors, and Coach, with slimmer—but real—chances at Prada, Louis Vuitton, and Chanel.</p>
+          <p class="kicker" id="opening-label">Selected box · New York Edit</p>
+          <h2 id="opening-title">Everyday favorites meet fashion-house icons.</h2>
+          <p id="opening-description">Crossbodies, totes, wallets, wristlets, pouches, and statement bags from Lululemon, Kate Spade, Michael Kors, Coach, Tory Burch, Saint Laurent, Burberry, Gucci, Versace, and more.</p>
           <div class="round-meta" aria-label="Current fairness commitment">
             <div class="round-row"><span>Published purse odds</span><button class="text-link" id="odds-link" type="button">See what's inside</button></div>
             <div class="round-row"><span>Seed commitment</span><code id="commitment-short">Preparing…</code></div>
@@ -567,7 +581,7 @@
           </div>
           <div class="open-actions">
             <button class="open-btn" id="open-btn" type="button" disabled>
-              <span>Reveal my piece</span><span class="open-cost" id="open-cost">$50.00</span>
+              <span id="open-label">Reveal my piece</span><span class="open-cost" id="open-cost">$100.00</span>
             </button>
             <button class="secondary-btn" id="proof-link" type="button">Fairness</button>
           </div>
@@ -577,7 +591,7 @@
       <section id="drops" aria-labelledby="drops-title">
         <div class="section-rule">
           <h2 id="drops-title">Choose a box</h2>
-          <span>Select one / Premium odds improve with box price</span>
+          <span>New York is live / More Edits coming soon</span>
         </div>
         <div class="boxes" id="box-list"></div>
         <div class="carousel-controls" role="group" aria-label="Choose a designer purse box">
@@ -590,12 +604,12 @@
 
       <section class="trust" aria-labelledby="trust-title">
         <div>
-          <p class="kicker">A designer mix in every box</p>
-          <h2 id="trust-title">More ways to pull a bag you love.</h2>
+          <p class="kicker">The New York Edit</p>
+          <h2 id="trust-title">From everyday carry to runway statement.</h2>
         </div>
         <div class="trust-copy">
-          <div><h3>Contemporary to iconic</h3><p>Every box mixes accessible designer rewards from Kate Spade and Michael Kors with purses from Prada, Louis Vuitton, Chanel, and other leading houses.</p></div>
-          <div><h3>Better odds as you move up</h3><p>Higher-priced boxes publish stronger chances for premium-tier purses. Every included bag, estimated retail value, and individual probability is visible before you open.</p></div>
+          <div><h3>Eleven brands in the mix</h3><p>Discover sporty essentials from Lululemon, Vuori, and Nike; favorites from Kate Spade, Michael Kors, Coach, and Tory Burch; and statement pieces from Saint Laurent, Burberry, Gucci, and Versace.</p></div>
+          <div><h3>Something at every tier</h3><p>The assortment ranges from a $44 pouch to a $3,650 Gucci top-handle bag, with crossbodies, totes, wallets, wristlets, and more across Chic, Studio, Signature, Runway, Couture, and Icon tiers.</p></div>
         </div>
       </section>
     </main>
@@ -609,12 +623,12 @@
   <div class="modal" id="odds-modal" role="dialog" aria-modal="true" aria-labelledby="odds-title">
     <div class="modal-sheet">
       <div class="sheet-head">
-        <div><p class="kicker" id="odds-kicker">London Edit</p><h2 id="odds-title">Every purse and probability,<br>before you open.</h2></div>
+        <div><p class="kicker" id="odds-kicker">New York Edit</p><h2 id="odds-title">Every piece and probability,<br>before you reveal.</h2></div>
         <button class="close-btn" type="button" aria-label="Close">×</button>
       </div>
-      <div class="odds-summary"><span id="odds-price">Entry $50.00</span><span id="odds-total">Total probability 100.00%</span></div>
+      <div class="odds-summary"><span id="odds-price">Entry $100.00</span><span id="odds-total">Total probability 100.00%</span></div>
       <div class="odds-list" id="odds-list"></div>
-      <p class="proof-intro">Each opening awards one purse from this box's mixed-designer assortment. Probabilities apply independently, and higher-priced boxes offer stronger premium-tier odds. Retail values are estimates and are not guaranteed cash redemption values.</p>
+      <p class="proof-intro">Each reveal awards one listed bag or accessory from the New York Edit. The assortment spans Chic through Icon tiers, and every probability is published before you open. Retail values are estimates and are not guaranteed cash redemption values.</p>
     </div>
   </div>
 
@@ -643,13 +657,13 @@
 
   <div class="modal reward-modal" id="reward-modal" role="dialog" aria-modal="true" aria-labelledby="reward-name">
     <div class="modal-sheet">
-      <div class="reward-photo"><img id="reward-photo" src="./images/london-edit.png" alt="" decoding="async"></div>
+      <div class="reward-photo"><img id="reward-photo" src="./images/new-york-edit.png" alt="" decoding="async"></div>
       <div class="reward-copy">
-        <p class="kicker" id="reward-tier">Chanel / One of one reward</p>
-        <h2 id="reward-name">Small Classic Handbag</h2>
-        <p class="reward-value" id="reward-value">Estimated retail · $42.00</p>
-        <p class="reward-chance" id="reward-chance">Published chance · 18.00%</p>
-        <p class="buyback-offer" id="buyback-offer">Instant buyback offer · $29.40</p>
+        <p class="kicker" id="reward-tier">Gucci / Icon reward</p>
+        <h2 id="reward-name">Paparazzo Large Top Handle Bag</h2>
+        <p class="reward-value" id="reward-value">Estimated retail · $3,650.00</p>
+        <p class="reward-chance" id="reward-chance">Published chance · 2.4%</p>
+        <p class="buyback-offer" id="buyback-offer">Instant buyback offer · $2,555.00</p>
         <div class="reward-actions">
           <button class="keep-btn" id="ship-btn" type="button">Ship this to me</button>
           <button class="buyback-btn" id="buyback-btn" type="button">Accept Instant Buyback</button>
@@ -695,11 +709,13 @@
 
     const FALLBACK_PHOTO = './images/paris-edit.png';
     const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    const percent = new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 });
     const INSTANT_BUYBACK_RATE = 0.7;
     const BOXES = [
       {
-        id: 'london', number: '01', name: 'London Edit', title: 'An accessible way into designer bags.',
-        description: 'A broad mix led by Kate Spade, Michael Kors, and Coach, with slimmer—but real—chances at Prada, Louis Vuitton, and Chanel.',
+        id: 'london', number: '01', name: 'London Edit', title: 'The London selection is being curated.',
+        available: false,
+        description: 'Full contents, estimated values, and published odds will be revealed before this Edit launches.',
         price: 5000, boxImage: './images/luxury-edits-trunk.webp', openImage: './images/luxury-edits-trunk.webp', image: './images/london-edit.png', imagePosition: 'center',
         products: [
           { brand: 'Kate Spade', name: 'Knott Medium Tote', tier: 'Essential', chance: 46, value: 29800, position: '79% 70%' },
@@ -711,21 +727,24 @@
         ]
       },
       {
-        id: 'new-york', number: '02', name: 'New York Edit', title: 'More room for the icons.',
-        description: 'A balanced designer mix with improved odds for Prada, Louis Vuitton, Chanel, and other premium houses.',
+        id: 'new-york', number: '02', name: 'New York Edit', title: 'Everyday favorites meet fashion-house icons.',
+        available: true,
+        collectionSummary: '28 bags and accessories',
+        description: 'Crossbodies, totes, wallets, wristlets, pouches, and statement bags from Lululemon, Kate Spade, Michael Kors, Coach, Tory Burch, Saint Laurent, Burberry, Gucci, Versace, and more.',
         price: 10000, boxImage: './images/luxury-edits-trunk.webp', openImage: './images/luxury-edits-trunk.webp', image: './images/new-york-edit.png', imagePosition: 'center',
         products: [
-          { brand: 'Kate Spade', name: 'Deco Crossbody', tier: 'Essential', chance: 36, value: 32800, position: '46% 76%' },
-          { brand: 'Michael Kors', name: 'Nolita Shoulder Bag', tier: 'Essential', chance: 28, value: 45800, position: '28% 67%' },
+          { brand: 'Kate Spade', name: 'Deco Crossbody', tier: 'Chic', chance: 36, value: 32800, position: '46% 76%' },
+          { brand: 'Michael Kors', name: 'Nolita Shoulder Bag', tier: 'Studio', chance: 28, value: 45800, position: '28% 67%' },
           { brand: 'Coach', name: 'Empire Carryall', tier: 'Signature', chance: 16, value: 89500, position: '62% 54%' },
-          { brand: 'Prada', name: 'Re-Edition 2005', tier: 'Rare', chance: 10, value: 220000, position: '64% 52%' },
-          { brand: 'Louis Vuitton', name: 'Neverfull MM', tier: 'Exceptional', chance: 7, value: 203000, position: '60% 49%' },
-          { brand: 'Chanel', name: 'Mini Flap Bag', tier: 'One of one', chance: 3, value: 520000, position: '63% 47%' }
+          { brand: 'Prada', name: 'Re-Edition 2005', tier: 'Runway', chance: 10, value: 220000, position: '64% 52%' },
+          { brand: 'Louis Vuitton', name: 'Neverfull MM', tier: 'Couture', chance: 7, value: 203000, position: '60% 49%' },
+          { brand: 'Chanel', name: 'Mini Flap Bag', tier: 'Icon', chance: 3, value: 520000, position: '63% 47%' }
         ]
       },
       {
-        id: 'milan', number: '03', name: 'Milan Edit', title: 'Premium names move within reach.',
-        description: 'Stronger chances at Prada and Louis Vuitton, plus Chanel and standout purses from established contemporary labels.',
+        id: 'milan', number: '03', name: 'Milan Edit', title: 'The Milan selection is being curated.',
+        available: false,
+        description: 'Full contents, estimated values, and published odds will be revealed before this Edit launches.',
         price: 25000, boxImage: './images/luxury-edits-trunk.webp', openImage: './images/luxury-edits-trunk.webp', image: './images/milan-edit.png', imagePosition: 'center',
         products: [
           { brand: 'Kate Spade', name: 'Hudson Convertible Crossbody', tier: 'Essential', chance: 25, value: 39800, position: '34% 80%' },
@@ -737,8 +756,9 @@
         ]
       },
       {
-        id: 'paris', number: '04', name: 'Paris Edit', title: 'Our strongest luxury odds.',
-        description: 'The highest published chances for Chanel, Louis Vuitton, Prada, and other top-tier designer purses in the collection.',
+        id: 'paris', number: '04', name: 'Paris Edit', title: 'The Paris selection is being curated.',
+        available: false,
+        description: 'Full contents, estimated values, and published odds will be revealed before this Edit launches.',
         price: 100000, boxImage: './images/luxury-edits-trunk.webp', openImage: './images/luxury-edits-trunk.webp', image: './images/paris-edit.png', imagePosition: 'center',
         products: [
           { brand: 'Kate Spade', name: 'Collection Evening Bag', tier: 'Essential', chance: 18, value: 49800, position: '35% 77%' },
@@ -861,11 +881,11 @@
           oddsByEdit.set(edit, rows);
         });
 
-        BOXES.forEach(box => {
-          const rows = oddsByEdit.get(box.id) || [];
+        if (!oddsByEdit.size) throw new Error('The odds table must contain at least one Edit.');
+        oddsByEdit.forEach((rows, edit) => {
           const total = rows.reduce((sum, row) => sum + row.odds, 0);
           if (Math.abs(total - 1) > 1e-9) {
-            throw new Error(`Odds for ${box.name} total ${total.toFixed(6)} instead of 1.00.`);
+            throw new Error(`Odds for ${edit} total ${total.toFixed(6)} instead of 1.00.`);
           }
         });
 
@@ -892,6 +912,7 @@
 
       BOXES.forEach(box => {
         const rows = oddsByEdit.get(box.id) || [];
+        if (!rows.length) return;
         const productsByTier = new Map();
         box.products.forEach(product => {
           const tier = normalizeKey(product.tier);
@@ -922,6 +943,7 @@
 
         box.products.forEach(product => {
           product.chance = 0;
+          delete product.publishedOdds;
           delete product.priceRange;
         });
 
@@ -930,6 +952,7 @@
           const products = productsByTier.get(row.tierKey);
           const chancePerProduct = (row.odds / availableTotal) * 100 / products.length;
           products.forEach(product => {
+            product.publishedOdds = row.odds;
             product.priceRange = row.priceRange;
             assignments.push({ product, chance: chancePerProduct });
             if (!priceIsInRange(product.value, row.priceRange)) {
@@ -959,7 +982,7 @@
     const storedNonce = Number(localStorage.getItem('bagbox-fair-nonce'));
 
     const state = {
-      selected: BOXES.find(box => box.id === 'london') || BOXES[0],
+      selected: BOXES.find(box => box.id === 'new-york') || BOXES.find(box => box.available) || BOXES[0],
       balance: Number.isFinite(storedBalance) && storedBalance >= 0 ? storedBalance : 200000,
       inventory: Array.isArray(storedInventory) ? storedInventory : [],
       nonce: Number.isInteger(storedNonce) && storedNonce >= 0 ? storedNonce : 0,
@@ -1010,37 +1033,40 @@
 
     function renderBoxes() {
       boxList.innerHTML = BOXES.map(box => `
-        <article class="box-card ${box.id === state.selected.id ? 'active' : ''}" data-box="${box.id}">
-          <button class="box-select" type="button" data-select-box="${box.id}" aria-pressed="${box.id === state.selected.id}" aria-label="Select ${box.name}">
-            <span class="selected-badge">Selected box</span>
+        <article class="box-card ${box.id === state.selected.id ? 'active' : ''} ${box.available === false ? 'coming-soon' : ''}" data-box="${box.id}">
+          <button class="box-select" type="button" data-select-box="${box.id}" aria-pressed="${box.id === state.selected.id}" aria-label="${box.available === false ? `${box.name}, coming soon` : `Select ${box.name}`}" ${box.available === false ? 'disabled' : ''}>
+            <span class="selected-badge">${box.available === false ? 'Coming Soon' : 'Selected box'}</span>
             <span class="box-visual"><img src="${box.boxImage}" alt="${box.name} presentation box" style="object-position:${box.imagePosition}" loading="eager" decoding="sync"></span>
             <span class="box-meta">
-              <span class="box-number">Collection ${box.number} · Designer purse assortment</span>
-              <span class="box-name">${box.name}</span><span class="box-price">${money.format(box.price / 100)}</span>
+              <span class="box-number">Collection ${box.number} · ${box.available === false ? 'Coming Soon' : (box.collectionSummary || 'Designer purse assortment')}</span>
+              <span class="box-name">${box.name}</span><span class="box-price">${box.available === false ? 'Coming Soon' : money.format(box.price / 100)}</span>
               <span class="box-desc">${box.description}</span>
             </span>
           </button>
           <div class="mobile-box-actions">
-            <div class="mobile-odds-row"><span>Published purse odds</span><button class="text-link" type="button" data-show-odds>See what's inside</button></div>
+            <div class="mobile-odds-row"><span>${box.available === false ? 'This Edit is not yet available' : 'Published purse odds'}</span><button class="text-link" type="button" data-show-odds ${box.available === false ? 'disabled' : ''}>${box.available === false ? 'Coming Soon' : `See what's inside`}</button></div>
             <div class="mobile-open-actions">
-              <button class="open-btn mobile-open-btn" type="button" data-open-box ${state.opening || !state.round ? 'disabled' : ''}>
-                <span>Reveal my piece</span><span class="open-cost">${money.format(box.price / 100)}</span>
+              <button class="open-btn mobile-open-btn" type="button" data-open-box ${state.opening || !state.round || box.available === false ? 'disabled' : ''}>
+                <span>${box.available === false ? 'Coming Soon' : 'Reveal my piece'}</span><span class="open-cost">${box.available === false ? '' : money.format(box.price / 100)}</span>
               </button>
-              <button class="secondary-btn mobile-proof-btn" type="button" data-show-proof>Fairness</button>
+              <button class="secondary-btn mobile-proof-btn" type="button" data-show-proof ${box.available === false ? 'disabled' : ''}>Fairness</button>
             </div>
           </div>
         </article>`).join('');
 
       boxDots.innerHTML = BOXES.map((box, index) => `
-        <button class="box-dot ${box.id === state.selected.id ? 'active' : ''}" type="button" data-carousel-box="${box.id}" aria-label="Select ${box.name}, box ${index + 1} of ${BOXES.length}" aria-pressed="${box.id === state.selected.id}"></button>`).join('');
+        <button class="box-dot ${box.id === state.selected.id ? 'active' : ''} ${box.available === false ? 'coming-soon' : ''}" type="button" data-carousel-box="${box.id}" aria-label="${box.name}${box.available === false ? ', coming soon' : ''}, box ${index + 1} of ${BOXES.length}" aria-pressed="${box.id === state.selected.id}"></button>`).join('');
 
       const selectedIndex = BOXES.findIndex(box => box.id === state.selected.id);
-      boxStatus.textContent = `${state.selected.name} selected, box ${selectedIndex + 1} of ${BOXES.length}`;
+      boxStatus.textContent = `${state.selected.name}${state.selected.available === false ? ', coming soon' : ' selected'}, box ${selectedIndex + 1} of ${BOXES.length}`;
     }
 
     function setOpeningDisabled(disabled) {
-      openBtn.disabled = disabled;
-      boxList.querySelectorAll('[data-open-box]').forEach(button => { button.disabled = disabled; });
+      openBtn.disabled = disabled || state.selected.available === false;
+      boxList.querySelectorAll('[data-open-box]').forEach(button => {
+        const box = BOXES.find(candidate => candidate.id === button.closest('[data-box]')?.dataset.box);
+        button.disabled = disabled || box?.available === false;
+      });
     }
 
     function renderBalance() {
@@ -1062,7 +1088,8 @@
       $('#opening-title').textContent = state.selected.title;
       $('#opening-description').textContent = state.selected.description;
       $('#opening-stamp').textContent = `Collection ${state.selected.number}`;
-      $('#open-cost').textContent = money.format(state.selected.price / 100);
+      $('#open-label').textContent = state.selected.available === false ? 'Coming Soon' : 'Reveal my piece';
+      $('#open-cost').textContent = state.selected.available === false ? '' : money.format(state.selected.price / 100);
       $('#opening-photo').src = state.selected.boxImage;
       $('#opening-photo').alt = `Closed ${state.selected.name} presentation box`;
       $('#opening-photo-open').src = state.selected.openImage;
@@ -1070,6 +1097,7 @@
       $('#opening-photo').style.setProperty('--image-position', state.selected.imagePosition);
       $('#opening-photo').style.objectPosition = state.selected.imagePosition;
       $('#opening-photo-open').style.objectPosition = state.selected.imagePosition;
+      setOpeningDisabled(state.opening || !state.round);
       if (scroll && window.innerWidth > 560 && window.innerWidth < 901) opening.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -1108,6 +1136,10 @@
 
     async function openBox() {
       if (state.opening || !state.round) return;
+      if (state.selected.available === false) {
+        showToast(`${state.selected.name} is coming soon.`);
+        return;
+      }
       if (state.balance < state.selected.price) {
         showToast('Insufficient wallet balance for this box.');
         return;
@@ -1147,10 +1179,13 @@
 
     function showReward(product) {
       const buybackValue = Math.round(product.value * INSTANT_BUYBACK_RATE);
+      const publishedChance = Number.isFinite(product.publishedOdds)
+        ? product.publishedOdds * 100
+        : product.chance;
       $('#reward-tier').textContent = `${product.brand ? `${product.brand} / ` : ''}${product.tier} reward`;
       $('#reward-name').textContent = product.name;
       $('#reward-value').textContent = `Estimated retail · ${money.format(product.value / 100)}`;
-      $('#reward-chance').textContent = `Published chance · ${product.chance.toFixed(2)}%`;
+      $('#reward-chance').textContent = `Published chance · ${percent.format(publishedChance)}%`;
       $('#buyback-offer').textContent = `Instant buyback offer · ${money.format(buybackValue / 100)}`;
       $('#reward-photo').src = product.image || FALLBACK_PHOTO;
       $('#reward-photo').alt = product.name;
