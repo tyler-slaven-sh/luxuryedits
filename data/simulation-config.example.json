@@ -1,0 +1,10 @@
+{
+  "edit": "New York",
+  "box_price": 100.0,
+  "simulations": 10000,
+  "openings_per_simulation": 1000,
+  "confidence_level": 0.99,
+  "seed": 20260723,
+  "default_buyback_offer_rate": 0.7,
+  "default_starting_inventory": 1
+}
