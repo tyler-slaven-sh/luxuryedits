@@ -1,29 +1,29 @@
 id,name,price,brand,edit,tier,image_name
-1,Water Bottle Crossbody- Pocket,48,Lululemon,New York,Studio
-2,Small Slouchy Sling Bag 3L,58,Lululemon,New York,Studio
-3,Loop Pebbled Leather Slim Pochette Bag,128,Kate Spade,New York,Runway
-4,Ruched Tote Bag 24L,78,Lululemon,New York,Studio
-5,Margot Shoulder Bag,139,Kate Spade,New York,Runway
-6,Izzy Small Signature Logo Barrel Pochette,99.5,Michael Kors,New York,Studio
-7,Jet Set Small Signature Logo Card Case Wristlet,79.5,Michael Kors,New York,Studio
-8,Jet Set Medium Signature Logo Convertible Wristlet,129.5,Michael Kors,New York,Runway
-9,Large Logo Continental Wallet,159.5,Michael Kors,New York,Runway
-10,Hamilton Moderne Extra-Small Leather Crossbody Bag,179.5,Michael Kors,New York,Couture
-11,Sam Ksnyl Nylon North South Phone Crossbody,148,Kate Spade,New York,Runway
-12,Loop Crossbody,198,Kate Spade,New York,Icon
-13,Coastal Pouch,44,Vuori,New York,Chic
-14,All Around Tote,88,Vuori,New York,Studio
-15,Nike One Duffel Bag (35L),125,Nike,New York,Runway
-16,Triple Compartment Tote Bag 18L,168,Lululemon,New York,Couture
-17,On A Roll Zip Cardholder,110,Kate Spade,New York,Signature
-18,Devin Spade Flower Jacquard Bifold Wallet,110,Kate Spade,New York,Signature
-19,Paris Diamond Quilted Satin Wallet on a Chain,1250,Saint Laurent,New York,Icon
-20,Limited Edition Tote,475,Tory Burch,New York,Icon
-21,Paris Diamond Quilted Grain de Poudre Leather Envelope Pouch,890,Saint Laurent,New York,Icon
-22,Elora Refined Leather Top Handle Bag,195,Coach,New York,Icon
-23,Small Check Cotswolds Tote,2595,Burberry,New York,Icon
-24,Tabby 26 Loved Leather Shoulder Bag,475,Coach,New York,Icon
-25,Paparazzo large top handle bag,3650,Gucci,New York,Icon
-26,Gucci Venice small bucket bag,2550,Gucci,New York,Icon
-27,Rivière Mini Canvas Tote,1690,Versace,New York,Icon
-28,Rivière Large Canvas Tote,1950,Versace,New York,Icon
+1,Water Bottle Crossbody- Pocket,48,Lululemon,New York,Studio,lulu_wat.webp
+2,Small Slouchy Sling Bag 3L,58,Lululemon,New York,Studio,lulu_slouch.webp
+3,Loop Pebbled Leather Slim Pochette Bag,128,Kate Spade,New York,Runway,kate_loop.webp
+4,Ruched Tote Bag 24L,78,Lululemon,New York,Studio,lulu_ruched.webp
+5,Margot Shoulder Bag,139,Kate Spade,New York,Runway,kate_margot.avif
+6,Izzy Small Signature Logo Barrel Pochette,99.5,Michael Kors,New York,Studio,kors_izzy.avif
+7,Jet Set Small Signature Logo Card Case Wristlet,79.5,Michael Kors,New York,Studio,kors_jet.avif
+8,Jet Set Medium Signature Logo Convertible Wristlet,129.5,Michael Kors,New York,Runway,kors_jetm.avif
+9,Large Logo Continental Wallet,159.5,Michael Kors,New York,Runway,kors_logo.avif
+10,Hamilton Moderne Extra-Small Leather Crossbody Bag,179.5,Michael Kors,New York,Couture,kors_ham.avif
+11,Sam Ksnyl Nylon North South Phone Crossbody,148,Kate Spade,New York,Runway,kate_sam.avif
+12,Loop Crossbody,198,Kate Spade,New York,Icon,kate_looppale.avif
+13,Coastal Pouch,44,Vuori,New York,Chic,vuori_coast.webp
+14,All Around Tote,88,Vuori,New York,Studio,vuori_tote.webp
+15,Nike One Duffel Bag (35L),125,Nike,New York,Runway,nike_duff.avif
+16,Triple Compartment Tote Bag 18L,168,Lululemon,New York,Couture,lulu_trip.webp
+17,On A Roll Zip Cardholder,110,Kate Spade,New York,Signature,kate_metro.avif
+18,Devin Spade Flower Jacquard Bifold Wallet,110,Kate Spade,New York,Signature,kate_dev.avif
+19,Paris Diamond Quilted Satin Wallet on a Chain,1250,Saint Laurent,New York,Icon,ysl_paris.webp
+20,Limited Edition Tote,475,Tory Burch,New York,Icon,tory_tote.avif
+21,Paris Diamond Quilted Grain de Poudre Leather Envelope Pouch,890,Saint Laurent,New York,Icon,ysl_poudre.webp
+22,Elora Refined Leather Top Handle Bag,195,Coach,New York,Icon,coach_elora.webp
+23,Small Check Cotswolds Tote,2595,Burberry,New York,Icon,burb_cots.webp
+24,Tabby 26 Loved Leather Shoulder Bag,475,Coach,New York,Icon,coach_tabby.webp
+25,Paparazzo large top handle bag,3650,Gucci,New York,Icon,gucci_pap.webp
+26,Gucci Venice small bucket bag,2550,Gucci,New York,Icon,gucci_buc.webp
+27,Rivière Mini Canvas Tote,1690,Versace,New York,Icon,vers_rivi.webp
+28,Rivière Large Canvas Tote,1950,Versace,New York,Icon,vers_rivl.webp
