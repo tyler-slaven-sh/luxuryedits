@@ -98,9 +98,12 @@ with input_path.open("r", encoding="utf-8-sig", newline="") as csv_file:
             "odds": float(odds),
         })
 
-for edit in valid_edits:
-    if totals[edit] != Decimal("1.00"):
-        fail(f"odds for {edit} total {totals[edit]} instead of 1.00")
+if not records:
+    fail("the file does not contain any odds rows")
+
+for edit, total in totals.items():
+    if total != Decimal("1.00"):
+        fail(f"odds for {edit} total {total} instead of 1.00")
 
 temporary_path = output_path.with_suffix(output_path.suffix + ".tmp")
 with temporary_path.open("w", encoding="utf-8", newline="\n") as json_file:
